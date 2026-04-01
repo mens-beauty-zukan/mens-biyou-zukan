@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>メンズ美容図鑑｜化粧水完全比較</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0d0d0b;
+  --bg2:#141412;
+  --bg3:#1c1c19;
+  --border:#2a2a26;
+  --green:#3dd68c;
+  --green-dim:#1a5c3a;
+  --green-bg:#0d2b1c;
+  --red:#f05a5a;
+  --red-bg:#2b0f0f;
+  --amber:#f0b43a;
+  --amber-bg:#2b1f0a;
+  --text:#e8e6de;
+  --text2:#9a9890;
+  --text3:#5a5a54;
+  --accent:#3dd68c;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--text);font-family:'Noto Sans JP',sans-serif;font-size:14px;line-height:1.6;}
+a{color:inherit;text-decoration:none;}
+
+/* NAV */
+nav{display:flex;align-items:center;justify-content:space-between;padding:16px 24px;border-bottom:1px solid var(--border);position:sticky;top:0;background:rgba(13,13,11,.92);backdrop-filter:blur(12px);z-index:100;}
+.logo{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:.05em;color:var(--green);}
+.logo span{color:var(--text);font-size:14px;font-family:'Noto Sans JP',sans-serif;font-weight:400;margin-left:8px;opacity:.6;}
+.nav-links{display:flex;gap:20px;font-size:12px;color:var(--text2);}
+.nav-links a:hover{color:var(--text);}
+
+/* HERO */
+.hero{padding:60px 24px 40px;max-width:900px;margin:0 auto;text-align:center;}
+.hero-eyebrow{font-size:11px;letter-spacing:.15em;color:var(--green);text-transform:uppercase;margin-bottom:16px;}
+.hero-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(40px,8vw,72px);line-height:1.05;letter-spacing:.02em;margin-bottom:16px;}
+.hero-title em{color:var(--green);font-style:normal;}
+.hero-sub{font-size:14px;color:var(--text2);max-width:480px;margin:0 auto 32px;line-height:1.8;}
+.hero-badges{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:40px;}
+.hbadge{font-size:11px;padding:5px 12px;border-radius:99px;border:1px solid var(--border);color:var(--text2);}
+.hbadge.active{border-color:var(--green);color:var(--green);background:var(--green-bg);}
+
+/* FILTER BAR */
+.filter-wrap{max-width:900px;margin:0 auto;padding:0 24px 24px;}
+.filter-bar{display:flex;gap:6px;flex-wrap:wrap;padding:12px;background:var(--bg2);border:1px solid var(--border);border-radius:12px;}
+.fbtn{padding:7px 16px;border-radius:8px;border:1px solid transparent;background:transparent;color:var(--text2);font-size:12px;font-family:'Noto Sans JP',sans-serif;cursor:pointer;transition:all .15s;}
+.fbtn:hover{color:var(--text);background:var(--bg3);}
+.fbtn.active{background:var(--green-bg);border-color:var(--green-dim);color:var(--green);}
+.search-input{flex:1;min-width:160px;background:transparent;border:none;outline:none;color:var(--text);font-size:13px;font-family:'Noto Sans JP',sans-serif;padding:7px 12px;}
+.search-input::placeholder{color:var(--text3);}
+.filter-divider{width:1px;background:var(--border);margin:0 4px;}
+
+/* SORT ROW */
+.sort-row{max-width:900px;margin:0 auto;padding:0 24px 16px;display:flex;align-items:center;justify-content:space-between;}
+.sort-label{font-size:12px;color:var(--text3);}
+.sort-btns{display:flex;gap:4px;}
+.sbtn{padding:5px 12px;border-radius:6px;border:1px solid var(--border);background:transparent;color:var(--text2);font-size:11px;font-family:'Noto Sans JP',sans-serif;cursor:pointer;}
+.sbtn.active{border-color:var(--green-dim);color:var(--green);background:var(--green-bg);}
+
+/* PRODUCT GRID */
+.grid{max-width:900px;margin:0 auto;padding:0 24px;display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;margin-bottom:48px;}
+
+.prod-card{background:var(--bg2);border:1px solid var(--border);border-radius:16px;overflow:hidden;cursor:pointer;transition:border-color .2s,transform .15s;}
+.prod-card:hover{border-color:var(--green-dim);transform:translateY(-2px);}
+.prod-card.best-pick{border-color:var(--green);box-shadow:0 0 0 1px var(--green-dim);}
+
+.card-img{height:180px;display:flex;align-items:center;justify-content:center;background:var(--bg3);position:relative;overflow:hidden;}
+.card-img-placeholder{font-size:48px;opacity:.3;}
+.card-rank{position:absolute;top:10px;left:10px;font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:.05em;padding:3px 10px;border-radius:6px;background:rgba(13,13,11,.85);}
+.rank-1{color:var(--amber);border:1px solid var(--amber);}
+.rank-2{color:var(--text2);border:1px solid var(--border);}
+.rank-3{color:#cd7f32;border:1px solid #cd7f32;}
+.best-label{position:absolute;top:10px;right:10px;font-size:10px;padding:3px 9px;border-radius:99px;background:var(--green);color:#000;font-weight:700;}
+
+.card-body{padding:14px;}
+.card-cat{font-size:10px;color:var(--text3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px;}
+.card-name{font-size:14px;font-weight:700;color:var(--text);margin-bottom:2px;line-height:1.4;}
+.card-brand{font-size:11px;color:var(--text2);margin-bottom:10px;}
+
+.price-row{display:flex;align-items:baseline;gap:6px;margin-bottom:10px;}
+.price-per-day{font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--green);}
+.price-per-day-unit{font-size:11px;color:var(--text3);}
+.price-total{font-size:11px;color:var(--text3);margin-left:auto;}
+
+.axes{display:flex;flex-direction:column;gap:5px;margin-bottom:10px;}
+.ax{display:flex;align-items:center;gap:8px;}
+.ax-name{font-size:10px;color:var(--text3);min-width:44px;}
+.ax-bar{flex:1;height:3px;background:var(--bg3);border-radius:99px;overflow:hidden;}
+.ax-fill{height:100%;border-radius:99px;transition:width .4s;}
+
+.card-tags{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:10px;}
+.ctag{font-size:10px;padding:2px 8px;border-radius:99px;}
+.ctag-g{background:var(--green-bg);color:var(--green);border:1px solid var(--green-dim);}
+.ctag-r{background:var(--red-bg);color:var(--red);border:1px solid #5a1a1a;}
+.ctag-a{background:var(--amber-bg);color:var(--amber);border:1px solid #5a3a0a;}
+
+.honest-preview{font-size:12px;color:var(--text2);line-height:1.6;border-top:1px solid var(--border);padding-top:10px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+
+/* MODAL */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:200;padding:20px;overflow-y:auto;}
+.modal-overlay.open{display:flex;align-items:flex-start;justify-content:center;}
+.modal{background:var(--bg2);border:1px solid var(--border);border-radius:20px;max-width:600px;width:100%;margin:auto;}
+.modal-header{padding:20px 24px 0;display:flex;align-items:flex-start;justify-content:space-between;gap:12px;}
+.modal-close{background:var(--bg3);border:1px solid var(--border);color:var(--text2);width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.modal-close:hover{color:var(--text);}
+.modal-img{height:200px;display:flex;align-items:center;justify-content:center;font-size:64px;opacity:.35;}
+.modal-body{padding:0 24px 24px;}
+.modal-name{font-size:20px;font-weight:700;color:var(--text);margin-bottom:2px;}
+.modal-brand{font-size:12px;color:var(--text2);margin-bottom:16px;}
+
+.modal-price-row{display:flex;align-items:baseline;gap:8px;margin-bottom:20px;padding:12px 16px;background:var(--bg3);border-radius:10px;}
+.modal-ppd{font-family:'Bebas Neue',sans-serif;font-size:32px;color:var(--green);}
+.modal-ppu{font-size:12px;color:var(--text3);}
+.modal-ptotal{font-size:12px;color:var(--text3);margin-left:auto;}
+
+.modal-sec{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin-bottom:8px;margin-top:20px;}
+.modal-axes{display:flex;flex-direction:column;gap:8px;margin-bottom:4px;}
+.modal-ax{display:flex;align-items:center;gap:10px;}
+.modal-ax-name{font-size:12px;color:var(--text2);min-width:60px;}
+.modal-ax-bar{flex:1;height:5px;background:var(--bg3);border-radius:99px;overflow:hidden;}
+.modal-ax-fill{height:100%;border-radius:99px;}
+.modal-ax-val{font-size:11px;color:var(--text3);min-width:28px;text-align:right;}
+
+.pros-cons{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:4px;}
+.pc-box{background:var(--bg3);border-radius:10px;padding:12px;}
+.pc-title{font-size:11px;font-weight:700;margin-bottom:8px;}
+.pc-g .pc-title{color:var(--green);}
+.pc-r .pc-title{color:var(--red);}
+.pc-item{display:flex;gap:6px;font-size:12px;color:var(--text2);margin-bottom:5px;line-height:1.5;}
+.dot-g{width:4px;height:4px;border-radius:50%;background:var(--green);flex-shrink:0;margin-top:6px;}
+.dot-r{width:4px;height:4px;border-radius:50%;background:var(--red);flex-shrink:0;margin-top:6px;}
+
+.honest-full{font-size:13px;color:var(--text2);line-height:1.8;background:var(--bg3);border-radius:10px;padding:14px;border-left:3px solid var(--green);}
+
+.fit-section{margin-top:4px;}
+.fit-row{display:flex;flex-wrap:wrap;gap:5px;}
+
+.avoid-box{background:var(--red-bg);border:1px solid #5a1a1a;border-radius:10px;padding:12px;margin-top:4px;}
+.avoid-title{font-size:11px;font-weight:700;color:var(--red);margin-bottom:4px;}
+.avoid-body{font-size:12px;color:#c04040;line-height:1.6;}
+
+/* DIAGNOSIS SECTION */
+.diag-section{max-width:900px;margin:0 auto;padding:0 24px 60px;}
+.diag-card{background:var(--bg2);border:1px solid var(--green-dim);border-radius:20px;padding:32px;}
+.diag-title{font-family:'Bebas Neue',sans-serif;font-size:28px;color:var(--green);margin-bottom:6px;}
+.diag-sub{font-size:13px;color:var(--text2);margin-bottom:24px;}
+.diag-prog{height:2px;background:var(--bg3);border-radius:99px;margin-bottom:24px;overflow:hidden;}
+.diag-prog-fill{height:100%;background:var(--green);border-radius:99px;transition:width .35s;}
+.diag-qlbl{font-size:11px;color:var(--text3);margin-bottom:6px;letter-spacing:.05em;}
+.diag-q{font-size:16px;font-weight:700;color:var(--text);margin-bottom:4px;}
+.diag-qsub{font-size:12px;color:var(--text2);margin-bottom:18px;}
+.diag-choices{display:flex;flex-direction:column;gap:8px;margin-bottom:20px;}
+.dchoice{display:flex;align-items:flex-start;gap:12px;padding:12px 14px;border-radius:10px;border:1px solid var(--border);background:transparent;cursor:pointer;transition:all .12s;text-align:left;font-family:'Noto Sans JP',sans-serif;}
+.dchoice:hover{border-color:var(--green-dim);background:var(--green-bg);}
+.dchoice.sel{border-color:var(--green);background:var(--green-bg);}
+.dchoice-dot{width:16px;height:16px;border-radius:50%;border:1.5px solid var(--border);flex-shrink:0;margin-top:2px;display:flex;align-items:center;justify-content:center;}
+.dchoice.sel .dchoice-dot{background:var(--green);border-color:var(--green);}
+.dchoice-dot-in{width:6px;height:6px;border-radius:50%;background:#000;display:none;}
+.dchoice.sel .dchoice-dot-in{display:block;}
+.dchoice-lbl{font-size:13px;font-weight:500;color:var(--text);}
+.dchoice-desc{font-size:11px;color:var(--text2);margin-top:1px;}
+.diag-nav{display:flex;gap:8px;align-items:center;}
+.dnext{padding:10px 24px;border-radius:8px;border:none;background:var(--green);color:#000;font-size:13px;font-weight:700;font-family:'Noto Sans JP',sans-serif;cursor:pointer;transition:opacity .15s;}
+.dnext:disabled{opacity:.3;cursor:default;}
+.dback{padding:10px 16px;border-radius:8px;border:1px solid var(--border);background:transparent;color:var(--text2);font-size:13px;font-family:'Noto Sans JP',sans-serif;cursor:pointer;}
+.dback:hover{color:var(--text);}
+
+.diag-result{animation:fadeUp .3s ease;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.res-skin-badge{display:inline-flex;padding:6px 16px;border-radius:99px;font-size:13px;font-weight:700;margin-bottom:16px;}
+.res-comment{font-size:13px;color:var(--text2);line-height:1.8;padding:14px;background:var(--bg3);border-radius:10px;border-left:3px solid var(--green);margin-bottom:20px;}
+.res-products{display:flex;flex-direction:column;gap:10px;margin-bottom:20px;}
+.res-prod{background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:14px;}
+.res-prod.top{border-color:var(--green);}
+.res-prod-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;}
+.res-prod-name{font-size:13px;font-weight:700;color:var(--text);}
+.res-prod-brand{font-size:11px;color:var(--text2);}
+.res-prod-ppd{font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--green);}
+.res-prod-reason{font-size:12px;color:var(--text2);line-height:1.6;margin-bottom:8px;}
+.res-best-badge{font-size:10px;background:var(--green);color:#000;padding:2px 9px;border-radius:99px;font-weight:700;margin-bottom:6px;display:inline-block;}
+.res-avoid{background:var(--red-bg);border:1px solid #5a1a1a;border-radius:10px;padding:12px;margin-bottom:16px;}
+.res-avoid-title{font-size:11px;font-weight:700;color:var(--red);margin-bottom:4px;}
+.res-avoid-body{font-size:12px;color:#c04040;line-height:1.6;}
+.res-actions{display:flex;gap:8px;flex-wrap:wrap;}
+.ract{padding:9px 18px;border-radius:8px;border:1px solid var(--border);background:transparent;color:var(--text2);font-size:12px;font-family:'Noto Sans JP',sans-serif;cursor:pointer;}
+.ract:hover{color:var(--text);border-color:var(--green-dim);}
+.ract-p{padding:9px 18px;border-radius:8px;border:1px solid var(--green-dim);background:var(--green-bg);color:var(--green);font-size:12px;font-family:'Noto Sans JP',sans-serif;cursor:pointer;}
+.ract-p:hover{background:var(--green-dim);}
+
+/* SECTION HEADER */
+.sec-header{max-width:900px;margin:0 auto;padding:40px 24px 20px;display:flex;align-items:baseline;justify-content:space-between;}
+.sec-title{font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:.04em;}
+.sec-count{font-size:12px;color:var(--text3);}
+
+/* FOOTER */
+footer{border-top:1px solid var(--border);padding:24px;text-align:center;font-size:11px;color:var(--text3);}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">ZUKAN<span>メンズ美容図鑑</span></div>
+  <div class="nav-links">
+    <a href="#">洗顔</a>
+    <a href="#" style="color:var(--green)">化粧水</a>
+    <a href="#">日焼け止め</a>
+    <a href="#">リップ</a>
+    <a href="#diag">肌診断</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-eyebrow">2026年最新版・化粧水完全比較</div>
+  <h1 class="hero-title">インフルエンサーに<br><em>騙されるな。</em></h1>
+  <p class="hero-sub">成分・コスパ・肌タイプ適合度で正直に比較した。「全員におすすめ！」は嘘だ。あなたの肌に合うかどうかだけが重要。</p>
+  <div class="hero-badges">
+    <span class="hbadge active">脂性肌 6製品</span>
+    <span class="hbadge">乾燥肌 4製品</span>
+    <span class="hbadge">敏感肌 3製品</span>
+    <span class="hbadge">全肌タイプ</span>
+  </div>
+</div>
+
+<div class="filter-wrap">
+  <div class="filter-bar">
+    <input class="search-input" type="text" placeholder="製品名・ブランドで検索..." id="search" oninput="renderCards()">
+    <div class="filter-divider"></div>
+    <button class="fbtn active" onclick="setFilter('all',this)">すべて</button>
+    <button class="fbtn" onclick="setFilter('oily',this)">脂性肌</button>
+    <button class="fbtn" onclick="setFilter('dry',this)">乾燥肌</button>
+    <button class="fbtn" onclick="setFilter('sensitive',this)">敏感肌</button>
+    <button class="fbtn" onclick="setFilter('budget',this)">〜¥30/日</button>
+  </div>
+</div>
+
+<div class="sort-row">
+  <span class="sort-label" id="result-count">8製品</span>
+  <div class="sort-btns">
+    <button class="sbtn active" onclick="setSort('rank',this)">ランク順</button>
+    <button class="sbtn" onclick="setSort('price',this)">価格順</button>
+    <button class="sbtn" onclick="setSort('score',this)">評価順</button>
+  </div>
+</div>
+
+<div class="grid" id="product-grid"></div>
+
+<div class="sec-header" id="diag">
+  <div class="sec-title">肌タイプ診断 → 化粧水を絞り込む</div>
+</div>
+<div class="diag-section">
+  <div class="diag-card">
+    <div class="diag-title">5問診断</div>
+    <div class="diag-sub">あなたの肌タイプに本当に合う化粧水を出す。忖度なし。</div>
+    <div class="diag-prog"><div class="diag-prog-fill" id="dprog" style="width:0%"></div></div>
+    <div id="diag-area"></div>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal" onclick="closeModal(event)">
+  <div class="modal" id="modal-inner"></div>
+</div>
+
+<footer>メンズ美容図鑑 — 正直なレビューだけ。広告案件は明記します。</footer>
+
+<script>
+const products = [
+  {
+    id:'hadlabo',rank:1,filter:['oily','budget'],
+    name:'肌ラボ 極潤 PREMIUM',brand:'ロート製薬',
+    icon:'🧴',pricePerDay:23,priceTotal:1628,category:'高保湿化粧水',
+    score:4.3,
+    axes:[{n:'保湿力',v:92,c:'#3dd68c'},{n:'さっぱり感',v:40,c:'#60b8f0'},{n:'コスパ',v:95,c:'#f0b43a'},{n:'低刺激',v:78,c:'#c080f0'}],
+    tags:[{t:'高保湿コスパ部門1位',cls:'ctag-g'},{t:'脂性肌に重すぎる場合あり',cls:'ctag-r'}],
+    honest:'保湿力とコスパだけで見れば国内最強クラス。ただし脂性肌の人が使うと朝のテカリが悪化することがある。乾燥も気になる混合肌なら◎。「とにかく保湿したい」で脂性肌の人が選ぶのは金ドブになる可能性が高い。',
+    pros:['ヒアルロン酸5種配合で保湿力は本物','コスパ圧倒的（¥23/日）','長年の実績・安定した品質'],
+    cons:['脂性肌には重すぎてテカりやすい','テクスチャーがやや重め','メンズ向けではなくユニセックス設計'],
+    fitGood:['乾燥〜普通肌','混合肌の乾燥部分ケア','コスパ最優先'],
+    fitBad:['脂性肌（テカリ悪化リスク）','さっぱり感を求める人'],
+    fitNote:['混合肌で乾燥が気になる部分だけに使う戦略はあり'],
+    avoid:''
+  },
+  {
+    id:'muji',rank:2,filter:['oily','budget'],
+    name:'無印良品 薬用クリアケア化粧水',brand:'良品計画',
+    icon:'🫙',pricePerDay:23,priceTotal:1290,category:'薬用クリア系',
+    score:4.2,
+    axes:[{n:'保湿力',v:62,c:'#3dd68c'},{n:'さっぱり感',v:80,c:'#60b8f0'},{n:'コスパ',v:90,c:'#f0b43a'},{n:'低刺激',v:72,c:'#c080f0'}],
+    tags:[{t:'大容量コスパ部門1位',cls:'ctag-g'},{t:'脂性肌向き',cls:'ctag-g'},{t:'保湿はやや弱め',cls:'ctag-a'}],
+    honest:'脂性肌の化粧水としてはかなりまとも。さっぱりした使い心地で脂っぽさを抑えつつ、200mlの大容量でコスパも良い。ただし保湿力は高くないので、冬や乾燥が気になる人には物足りなさを感じるかもしれない。',
+    pros:['さっぱり使える脂性肌向けテクスチャー','200mlの大容量でコスパ良好','薬用でニキビケア成分入り'],
+    cons:['保湿力は高くない','ブランドのわりに地味で印象が薄い','乾燥肌には絶対に向かない'],
+    fitGood:['脂性肌','混合肌のTゾーンケア','大容量を使いたい人'],
+    fitBad:['乾燥肌','保湿力を求める人'],
+    fitNote:['ニキビが気になる脂性肌には◎'],
+    avoid:''
+  },
+  {
+    id:'acnes',rank:3,filter:['oily','budget'],
+    name:'アクネス 薬用 パウダー化粧水',brand:'ロート製薬',
+    icon:'💊',pricePerDay:15,priceTotal:800,category:'ニキビケア特化',
+    score:4.0,
+    axes:[{n:'保湿力',v:45,c:'#3dd68c'},{n:'さっぱり感',v:88,c:'#60b8f0'},{n:'コスパ',v:98,c:'#f0b43a'},{n:'低刺激',v:60,c:'#c080f0'}],
+    tags:[{t:'超オイリー肌・ニキビ撃退部門1位',cls:'ctag-g'},{t:'¥15/日・最安値クラス',cls:'ctag-g'},{t:'乾燥肌厳禁',cls:'ctag-r'}],
+    honest:'ニキビが酷くてテカりも気になる人専用。パウダー入りで毛穴を引き締める効果が実感しやすい。ただし保湿力はほぼゼロに近いので、乾燥が少しでもある人が使うとバリア機能が壊れる。「思春期ニキビ×脂性肌」には最適解。',
+    pros:['¥15/日という圧倒的コスパ','パウダー成分でテカリを抑制','ニキビへの即効性あり'],
+    cons:['保湿力がほぼない','乾燥肌が使うと肌荒れ悪化','テクスチャーが水っぽすぎると感じる人も'],
+    fitGood:['超脂性肌','ニキビが多い人','とにかく安く抑えたい人'],
+    fitBad:['乾燥肌（絶対NG）','敏感肌','普通肌以上の人（オーバースペック）'],
+    fitNote:['混合肌のTゾーンにのみ部分使いは可'],
+    avoid:''
+  },
+  {
+    id:'melano',rank:4,filter:['oily'],
+    name:'メラノCC 薬用しみ対策美白化粧水',brand:'ロート製薬',
+    icon:'🟡',pricePerDay:23,priceTotal:1000,category:'美白・ニキビ跡ケア',
+    score:4.1,
+    axes:[{n:'保湿力',v:55,c:'#3dd68c'},{n:'さっぱり感',v:75,c:'#60b8f0'},{n:'コスパ',v:88,c:'#f0b43a'},{n:'低刺激',v:58,c:'#c080f0'}],
+    tags:[{t:'ニキビ跡・毛穴ケア部門1位',cls:'ctag-g'},{t:'ビタミンC誘導体配合',cls:'ctag-g'},{t:'刺激感ある人も',cls:'ctag-a'}],
+    honest:'ニキビ跡・くすみ・毛穴が気になる脂性肌に向いてる。ビタミンC誘導体が実際に効く。ただし初めて使う人は刺激感を感じる場合があるので要注意。「テカリ＋ニキビ跡の両方を改善したい」人にはかなり有力な選択肢。',
+    pros:['ビタミンC誘導体でニキビ跡に効果あり','コスパも良好','さっぱりした使い心地'],
+    cons:['敏感肌・乾燥肌には刺激になる場合','最初はヒリつきを感じることも','美白効果は即効性なし'],
+    fitGood:['脂性肌でニキビ跡・くすみが気になる人','毛穴が気になる人'],
+    fitBad:['敏感肌','乾燥肌'],
+    fitNote:['ニキビが治った後のケアとして最適'],
+    avoid:''
+  },
+  {
+    id:'ipsa',rank:1,filter:['dry'],
+    name:'IPSA ザ・タイムR アクア',brand:'イプサ',
+    icon:'💎',pricePerDay:68,priceTotal:6000,category:'プレミアム保湿',
+    score:4.6,
+    axes:[{n:'保湿力',v:95,c:'#3dd68c'},{n:'さっぱり感',v:65,c:'#60b8f0'},{n:'コスパ',v:35,c:'#f0b43a'},{n:'低刺激',v:90,c:'#c080f0'}],
+    tags:[{t:'テカらないモテ肌投資部門1位',cls:'ctag-g'},{t:'¥68/日',cls:'ctag-a'},{t:'本気ケア向け',cls:'ctag-g'}],
+    honest:'間違いなく良い製品。保湿力と使い心地のバランスは国内トップクラス。ただし¥68/日は年間約2.5万円。「モテたい・清潔感を上げたい」という目的だけなら、もっとコスパの良い選択肢が他にある。本気でスキンケアに投資したい人向け。',
+    pros:['保湿力と軽さのバランスが最高クラス','ベタつかずしっとり','長年愛用者が多い信頼性'],
+    cons:['¥6,000（¥68/日）という高さ','コスパ重視層には向かない','プレミアム感の割に一般的な成分'],
+    fitGood:['乾燥肌で予算を出せる人','本格的な保湿を求める人','スキンケアを楽しみたい人'],
+    fitBad:['コスパ重視層','脂性肌（重すぎる）'],
+    fitNote:['予算があるならベストな選択肢'],
+    avoid:''
+  },
+  {
+    id:'curel',rank:2,filter:['dry','sensitive'],
+    name:'キュレル 潤浸保湿 化粧水 III とてもしっとり',brand:'花王',
+    icon:'🌿',pricePerDay:44,priceTotal:1980,category:'敏感・乾燥肌特化',
+    score:4.4,
+    axes:[{n:'保湿力',v:88,c:'#3dd68c'},{n:'さっぱり感',v:30,c:'#60b8f0'},{n:'コスパ',v:60,c:'#f0b43a'},{n:'低刺激',v:95,c:'#c080f0'}],
+    tags:[{t:'敏感肌保湿部門1位',cls:'ctag-g'},{t:'乾燥肌に最適',cls:'ctag-g'},{t:'脂性肌には重すぎ',cls:'ctag-r'}],
+    honest:'乾燥肌・敏感肌には正直これが最適解の一つ。セラミド機能成分でバリア機能を整える。ただし「III・とてもしっとり」は本当にしっとり重めなので、テカりが気になる人が使うと後悔する。肌荒れが酷い時期の緊急対応としても使える。',
+    pros:['セラミド機能成分でバリア機能を守る','敏感肌にも使いやすい低刺激設計','皮膚科でも推奨されることが多い'],
+    cons:['脂性肌には重すぎてテカリ悪化','¥1,980とそこそこの価格','テクスチャーが重いので夏は厳しい人も'],
+    fitGood:['乾燥肌','敏感肌','肌荒れしやすい人'],
+    fitBad:['脂性肌','テカリが悩みの人'],
+    fitNote:['混合肌は乾燥する頬にのみ使う戦略あり'],
+    avoid:''
+  },
+  {
+    id:'odemuge',rank:1,filter:['sensitive','budget'],
+    name:'小林製薬 オードムーゲ 薬用ローション',brand:'小林製薬',
+    icon:'🟢',pricePerDay:26,priceTotal:1300,category:'拭き取り・敏感肌',
+    score:4.0,
+    axes:[{n:'保湿力',v:50,c:'#3dd68c'},{n:'さっぱり感',v:82,c:'#60b8f0'},{n:'コスパ',v:85,c:'#f0b43a'},{n:'低刺激',v:88,c:'#c080f0'}],
+    tags:[{t:'拭き取り部門1位',cls:'ctag-g'},{t:'古い角質除去',cls:'ctag-g'},{t:'保湿力は低め',cls:'ctag-a'}],
+    honest:'拭き取り化粧水として使うと古い角質・皮脂を除去できて毛穴ケアになる。敏感肌でも比較的使いやすい処方。ただし保湿目的で使うと全然足りない。「洗顔後のひと手間で肌のキメを整えたい」用途に限定して使うのが正解。',
+    pros:['拭き取りで古い角質・皮脂を除去','さっぱりした使い心地','敏感肌にも使いやすい低刺激処方'],
+    cons:['保湿力はほぼない（別途必要）','使い方を間違えると乾燥する','メインの化粧水としては不完全'],
+    fitGood:['角質ケアをしたい人','混合肌のTゾーンケア','毛穴が気になる人'],
+    fitBad:['保湿が目的の人','乾燥肌'],
+    fitNote:['洗顔後に拭き取り→別の保湿化粧水という二段構えで使うのが最適'],
+    avoid:''
+  },
+  {
+    id:'dalba',rank:1,filter:['dry'],
+    name:'ダルバ ホワイトトリュフ ファーストスプレーセラム',brand:'d\'Alba',
+    icon:'✨',pricePerDay:108,priceTotal:5500,category:'韓国コスメ・美容液兼用',
+    score:4.2,
+    axes:[{n:'保湿力',v:85,c:'#3dd68c'},{n:'さっぱり感',v:70,c:'#60b8f0'},{n:'コスパ',v:25,c:'#f0b43a'},{n:'低刺激',v:75,c:'#c080f0'}],
+    tags:[{t:'ズボラ専用！韓国アイドル級ツヤ肌部門1位',cls:'ctag-g'},{t:'¥108/日・高め',cls:'ctag-r'},{t:'スプレータイプ',cls:'ctag-g'}],
+    honest:'スプレータイプで塗る手間がなく、成分は本当に良い。ただし¥108/日は年間約4万円。「韓国アイドル級」という言葉に惹かれて買う人が多いが、コスパで見ると他の選択肢の方が賢い場合がほとんど。使い心地の体験を重視する人向け。',
+    pros:['スプレータイプで手を汚さず塗れる','ツヤ感・保湿感は本物','成分クオリティは高い'],
+    cons:['¥108/日は年間4万円超','コスパは最悪クラス','スプレーなので量のコントロールが難しい'],
+    fitGood:['コスパより体験を重視する人','ズボラで手を使いたくない人','韓国コスメ好き'],
+    fitBad:['コスパ重視層','脂性肌（ツヤ感が強すぎる場合）'],
+    fitNote:['¥5,500を払う価値があるかは個人の優先度次第'],
+    avoid:''
+  },
+];
+
+const diagQs=[
+  {id:'q1',lbl:'質問 1 / 4',q:'朝起きたとき、顔のテカりは？',sub:'何もつけず寝た翌朝をイメージして。',
+   choices:[
+    {val:'oily',lbl:'全体的にテカテカ',desc:'おでこ・鼻・頬すべて'},
+    {val:'combo',lbl:'Tゾーンだけテカる',desc:'額・鼻は脂っぽいが頬は普通'},
+    {val:'normal',lbl:'特に気にならない',desc:'べたつきも乾燥もない'},
+    {val:'dry',lbl:'乾燥・つっぱり感がある',desc:'かさつき・ひきつれ感あり'},
+  ]},
+  {id:'q2',lbl:'質問 2 / 4',q:'肌の一番の悩みは？',sub:'一番優先度が高いものを選んで。',
+   choices:[
+    {val:'acne',lbl:'ニキビ・吹き出物',desc:'テカリ・毛穴と同時に悩んでる'},
+    {val:'spot',lbl:'ニキビ跡・くすみ・シミ',desc:'治った後の跡が残りやすい'},
+    {val:'dry_t',lbl:'乾燥・ハリ不足',desc:'水分不足で肌が荒れやすい'},
+    {val:'none',lbl:'特になし、清潔感を上げたい',desc:'モテ・印象改善が目的'},
+  ]},
+  {id:'q3',lbl:'質問 3 / 4',q:'化粧水のテクスチャーの好みは？',sub:'使い心地の好みを正直に。',
+   choices:[
+    {val:'light',lbl:'さっぱり・水のような軽さ',desc:'ベタつくのは絶対NG'},
+    {val:'normal',lbl:'普通のテクスチャー',desc:'特にこだわりない'},
+    {val:'rich',lbl:'しっとり重めでもOK',desc:'保湿感を重視したい'},
+    {val:'spray',lbl:'スプレータイプが楽',desc:'手を使いたくない'},
+  ]},
+  {id:'q4',lbl:'質問 4 / 4',q:'化粧水1本の予算は？',sub:'継続できる金額で選んでね。',
+   choices:[
+    {val:'low',lbl:'¥1,000以下（¥30/日以下）',desc:'ドラッグストアで買える'},
+    {val:'mid',lbl:'¥1,000〜3,000',desc:'少し良いものを使いたい'},
+    {val:'high',lbl:'¥3,000〜6,000',desc:'効果があれば投資できる'},
+    {val:'any',lbl:'¥6,000以上でもOK',desc:'品質・体験を最優先'},
+  ]},
+];
+
+let currentFilter='all', currentSort='rank', answers={}, dCur=0;
+
+function setFilter(f,btn){
+  currentFilter=f;
+  document.querySelectorAll('.fbtn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderCards();
+}
+function setSort(s,btn){
+  currentSort=s;
+  document.querySelectorAll('.sbtn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderCards();
+}
+
+function renderCards(){
+  const q=document.getElementById('search').value.toLowerCase();
+  let list=products.filter(p=>{
+    const matchF=currentFilter==='all'||p.filter.includes(currentFilter)||(currentFilter==='budget'&&p.pricePerDay<=30);
+    const matchQ=!q||p.name.toLowerCase().includes(q)||p.brand.toLowerCase().includes(q);
+    return matchF&&matchQ;
+  });
+  if(currentSort==='price') list=[...list].sort((a,b)=>a.pricePerDay-b.pricePerDay);
+  else if(currentSort==='score') list=[...list].sort((a,b)=>b.score-a.score);
+  else list=[...list].sort((a,b)=>a.rank-b.rank);
+
+  document.getElementById('result-count').textContent=list.length+'製品';
+  const grid=document.getElementById('product-grid');
+  grid.innerHTML=list.map((p,i)=>{
+    const isBest=p.rank===1;
+    const rankClass=p.rank===1?'rank-1':p.rank===2?'rank-2':p.rank===3?'rank-3':'';
+    const axes=p.axes.map(a=>`<div class="ax"><div class="ax-name">${a.n}</div><div class="ax-bar"><div class="ax-fill" style="width:${a.v}%;background:${a.c}"></div></div></div>`).join('');
+    const tags=p.tags.map(t=>`<span class="ctag ${t.cls}">${t.t}</span>`).join('');
+    return `<div class="prod-card${isBest?' best-pick':''}" onclick="openModal('${p.id}')" style="animation:fadeUp .3s ease ${i*0.05}s both">
+      <div class="card-img">
+        <div class="card-img-placeholder">${p.icon}</div>
+        ${rankClass?`<div class="card-rank ${rankClass}">${p.rank===1?'BEST':p.rank===2?'2ND':'3RD'}</div>`:''}
+        ${isBest?'<div class="best-label">最適解</div>':''}
+      </div>
+      <div class="card-body">
+        <div class="card-cat">${p.category}</div>
+        <div class="card-name">${p.name}</div>
+        <div class="card-brand">${p.brand}</div>
+        <div class="price-row">
+          <div class="price-per-day">¥${p.pricePerDay}</div>
+          <div class="price-per-day-unit">/日</div>
+          <div class="price-total">参考¥${p.priceTotal.toLocaleString()}</div>
+        </div>
+        <div class="axes">${axes}</div>
+        <div class="card-tags">${tags}</div>
+        <div class="honest-preview">${p.honest}</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function openModal(id){
+  const p=products.find(x=>x.id===id);
+  if(!p) return;
+  const axes=p.axes.map(a=>`<div class="modal-ax"><div class="modal-ax-name">${a.n}</div><div class="modal-ax-bar"><div class="modal-ax-fill" style="width:${a.v}%;background:${a.c}"></div></div><div class="modal-ax-val">${a.v}</div></div>`).join('');
+  const pros=p.pros.map(x=>`<div class="pc-item"><div class="dot-g"></div><div>${x}</div></div>`).join('');
+  const cons=p.cons.map(x=>`<div class="pc-item"><div class="dot-r"></div><div>${x}</div></div>`).join('');
+  const goodTags=p.fitGood.map(t=>`<span class="ctag ctag-g">${t}</span>`).join('');
+  const badTags=p.fitBad.map(t=>`<span class="ctag ctag-r">${t}</span>`).join('');
+  const noteTags=p.fitNote.map(t=>`<span class="ctag ctag-a">${t}</span>`).join('');
+
+  document.getElementById('modal-inner').innerHTML=`
+    <div class="modal-header">
+      <div></div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-img">${p.icon}</div>
+    <div class="modal-body">
+      <div class="modal-name">${p.name}</div>
+      <div class="modal-brand">${p.brand} ／ ${p.category}</div>
+      <div class="modal-price-row">
+        <div class="modal-ppd">¥${p.pricePerDay}</div>
+        <div class="modal-ppu">/日</div>
+        <div class="modal-ptotal">参考価格 ¥${p.priceTotal.toLocaleString()}</div>
+      </div>
+      <div class="modal-sec">評価軸</div>
+      <div class="modal-axes">${axes}</div>
+      <div class="modal-sec">正直コメント</div>
+      <div class="honest-full">${p.honest}</div>
+      <div class="modal-sec">良いところ / 悪いところ</div>
+      <div class="pros-cons">
+        <div class="pc-box pc-g"><div class="pc-title">良いところ</div>${pros}</div>
+        <div class="pc-box pc-r"><div class="pc-title">悪いところ</div>${cons}</div>
+      </div>
+      <div class="modal-sec">向いてる人 / 向いてない人</div>
+      <div class="fit-section"><div class="fit-row">${goodTags}${badTags}${noteTags}</div></div>
+      ${p.avoid?`<div class="modal-sec" style="margin-top:16px">注意</div><div class="avoid-box"><div class="avoid-title">この製品を避けるべき人</div><div class="avoid-body">${p.avoid}</div></div>`:''}
+    </div>`;
+  document.getElementById('modal').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+
+function closeModal(e){
+  if(e&&e.target!==document.getElementById('modal')) return;
+  document.getElementById('modal').classList.remove('open');
+  document.body.style.overflow='';
+}
+
+// DIAGNOSIS
+function renderDiag(i){
+  const q=diagQs[i];
+  document.getElementById('dprog').style.width=Math.round(i/diagQs.length*100)+'%';
+  let html=`<div class="diag-qlbl">${q.lbl}</div><div class="diag-q">${q.q}</div><div class="diag-qsub">${q.sub}</div><div class="diag-choices">`;
+  q.choices.forEach((c,idx)=>{
+    const sel=answers[q.id]===c.val?' sel':'';
+    html+=`<button class="dchoice${sel}" id="dc${idx}" onclick="dpick('${q.id}','${c.val}',${idx},${q.choices.length})">
+      <div class="dchoice-dot"><div class="dchoice-dot-in"></div></div>
+      <div><div class="dchoice-lbl">${c.lbl}</div><div class="dchoice-desc">${c.desc}</div></div>
+    </button>`;
+  });
+  html+=`</div><div class="diag-nav">
+    ${i>0?'<button class="dback" onclick="dback()">← 戻る</button>':''}
+    <button class="dnext" id="dnxt" onclick="dnext()" ${answers[q.id]?'':'disabled'}>${i<diagQs.length-1?'次へ →':'結果を見る →'}</button>
+  </div>`;
+  document.getElementById('diag-area').innerHTML=html;
+}
+
+function dpick(qid,val,idx,total){
+  answers[qid]=val;
+  for(let i=0;i<total;i++) document.getElementById('dc'+i)?.classList.remove('sel');
+  document.getElementById('dc'+idx)?.classList.add('sel');
+  document.getElementById('dnxt').disabled=false;
+}
+function dnext(){ if(!answers[diagQs[dCur].id]) return; dCur++; if(dCur>=diagQs.length) showDiagResult(); else renderDiag(dCur); }
+function dback(){ if(dCur>0){dCur--;renderDiag(dCur);} }
+
+function getDiagRecs(){
+  const t=answers.q1, trouble=answers.q2, texture=answers.q3, budget=answers.q4;
+  if(t==='oily'||t==='combo'){
+    if(trouble==='acne') return [{id:'acnes',best:true},{id:'melano',best:false}];
+    if(trouble==='spot') return [{id:'melano',best:true},{id:'muji',best:false}];
+    return [{id:'muji',best:true},{id:'acnes',best:false}];
+  }
+  if(t==='dry'){
+    if(budget==='any'||budget==='high') return [{id:'ipsa',best:true},{id:'curel',best:false}];
+    return [{id:'curel',best:true},{id:'hadlabo',best:false}];
+  }
+  if(trouble==='spot') return [{id:'melano',best:true},{id:'muji',best:false}];
+  if(budget==='low') return [{id:'hadlabo',best:true},{id:'acnes',best:false}];
+  return [{id:'curel',best:true},{id:'muji',best:false}];
+}
+
+function getSkinLabel(){
+  const t=answers.q1;
+  if(t==='oily') return {lbl:'脂性肌',bg:'#2b1f0a',col:'#f0b43a'};
+  if(t==='dry') return {lbl:'乾燥肌',bg:'#0d1e2b',col:'#60b8f0'};
+  if(t==='combo') return {lbl:'混合肌',bg:'#1a0d2b',col:'#c080f0'};
+  return {lbl:'普通肌',bg:'#0d2b1c',col:'#3dd68c'};
+}
+function getSkinComment(){
+  const t=answers.q1, tr=answers.q2;
+  if(t==='oily') return 'テカリ・皮脂過多が主な悩み。化粧水を選ぶ際は「保湿力」より「さっぱり感」と「皮脂コントロール」を優先すべき。ヒアルロン酸系の重い化粧水を選ぶと朝のテカリが悪化する可能性がある。';
+  if(t==='dry') return '水分不足が最大の問題。バリア機能を守る保湿成分（セラミド・ヒアルロン酸）が入った製品を選ぶべき。安い洗顔で荒れると、化粧水にもっとお金がかかるので、化粧水への投資は理にかなってる。';
+  if(t==='combo') return 'TゾーンとUゾーンで肌の状態が違う混合肌。一つの化粧水で両方を解決しようとすると難しい。さっぱり系をTゾーン全体に使い、乾燥する頬だけ保湿クリームを重ねる戦略が有効。';
+  return '安定した肌タイプなのでコスパ重視で選んでOK。特別な対策は必要ないので、習慣をつくることが最優先。差額を日焼け止めなど他のアイテムに投資した方が見た目の変化を感じやすい。';
+}
+
+function showDiagResult(){
+  document.getElementById('dprog').style.width='100%';
+  const recs=getDiagRecs();
+  const sk=getSkinLabel();
+  const comment=getSkinComment();
+  let html=`<div class="diag-result">
+    <div style="font-size:11px;color:var(--text3);margin-bottom:8px;letter-spacing:.05em">診断結果</div>
+    <div class="res-skin-badge" style="background:${sk.bg};color:${sk.col}">${sk.lbl}</div>
+    <div style="font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);margin-bottom:8px">あなたの肌について正直に言うと</div>
+    <div class="res-comment">${comment}</div>
+    <div style="font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);margin-bottom:10px">おすすめ化粧水（正直レビュー付き）</div>
+    <div class="res-products">`;
+
+  recs.forEach(r=>{
+    const p=products.find(x=>x.id===r.id);
+    if(!p) return;
+    html+=`<div class="res-prod${r.best?' top':''}">
+      ${r.best?'<div class="res-best-badge">この肌タイプへの最適解</div>':''}
+      <div class="res-prod-head">
+        <div><div class="res-prod-name">${p.name}</div><div class="res-prod-brand">${p.brand}</div></div>
+        <div><div class="res-prod-ppd">¥${p.pricePerDay}<span style="font-size:11px;color:var(--text3);font-family:'Noto Sans JP'">/日</span></div></div>
+      </div>
+      <div class="res-prod-reason">${p.honest.substring(0,80)}...</div>
+      <div class="card-tags" style="margin-top:6px">${p.tags.map(t=>`<span class="ctag ${t.cls}">${t.t}</span>`).join('')}</div>
+      <button onclick="openModal('${p.id}')" style="margin-top:8px;padding:6px 14px;border-radius:6px;border:1px solid var(--border);background:transparent;color:var(--text2);font-size:11px;font-family:'Noto Sans JP',sans-serif;cursor:pointer;">正直レビューを全部見る →</button>
+    </div>`;
+  });
+
+  const avoidId=recs[0].id==='hadlabo'?'acnes':recs[0].id==='acnes'?'hadlabo':'hadlabo';
+  const av=products.find(x=>x.id===avoidId);
+  html+=`</div>
+    <div class="res-avoid">
+      <div class="res-avoid-title">あなたの肌タイプが避けるべき</div>
+      <div class="res-avoid-body"><strong>${av.name}</strong>：${answers.q1==='oily'||answers.q1==='combo'?'保湿力が強すぎて脂性肌にはテカリを悪化させるリスクがある。コスパも悪くなる。':'洗浄力が強く乾燥肌のバリア機能を壊すリスクがある。価格が安くても逆効果。'}</div>
+    </div>
+    <div class="res-actions">
+      <button class="ract" onclick="drestart()">← もう一度診断する</button>
+      <button class="ract-p" onclick="setFilter('${answers.q1==='oily'||answers.q1==='combo'?'oily':'dry'}',document.querySelector('.fbtn'))">診断結果で絞り込む →</button>
+    </div>
+  </div>`;
+  document.getElementById('diag-area').innerHTML=html;
+}
+
+function drestart(){ answers={};dCur=0;document.getElementById('dprog').style.width='0%';renderDiag(0); }
+
+renderCards();
+renderDiag(0);
+</script>
+<style>
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+</style>
+</body>
+</html>
