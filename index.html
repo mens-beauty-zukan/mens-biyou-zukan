@@ -1,0 +1,1211 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>メンズ肌質診断 | メンズ美容図鑑</title>
+<meta name="description" content="12問で本当の肌タイプを診断。インナードライ・混合肌・敏感ニキビ肌など8タイプを多軸スコアで正確に判定。">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0d0d0b;
+  --card:#141a14;
+  --card-border:#2a3d2e;
+  --accent:#1db954;
+  --accent-dark:#158a3e;
+  --accent-glow:rgba(29,185,84,.12);
+  --text-hi:rgba(255,255,255,.9);
+  --text-mid:rgba(255,255,255,.55);
+  --text-lo:rgba(255,255,255,.28);
+  --border-lo:rgba(255,255,255,.08);
+  --border-mid:rgba(255,255,255,.14);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text-hi);font-family:'Noto Sans JP',sans-serif;font-size:14px;line-height:1.6;-webkit-font-smoothing:antialiased;min-height:100vh;}
+
+/* ── NAV ── */
+nav{background:rgba(13,13,11,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border-lo);position:sticky;top:0;z-index:100;}
+.nav-in{max-width:760px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:52px;padding:0 20px;}
+.logo{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:.06em;color:var(--text-hi);text-decoration:none;display:flex;align-items:center;gap:10px;}
+.logo span{font-family:'Noto Sans JP',sans-serif;font-size:10px;font-weight:400;color:var(--text-lo);letter-spacing:.04em;border-left:1px solid var(--border-lo);padding-left:10px;}
+.nav-badge{font-size:10px;letter-spacing:.08em;color:var(--accent);border:1px solid rgba(29,185,84,.3);padding:3px 10px;border-radius:99px;}
+
+/* ── HERO ── */
+.hero{padding:60px 20px 48px;text-align:center;border-bottom:1px solid var(--border-lo);}
+.hero-eye{font-size:10px;letter-spacing:.2em;color:var(--text-lo);text-transform:uppercase;margin-bottom:18px;}
+.hero h1{font-family:'Noto Sans JP',sans-serif;font-size:clamp(24px,5vw,36px);font-weight:900;line-height:1.25;margin-bottom:14px;letter-spacing:.01em;}
+.hero h1 em{color:var(--accent);font-style:normal;}
+.hero-sub{font-size:13px;color:var(--text-mid);line-height:1.9;max-width:480px;margin:0 auto 28px;}
+.hero-tags{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;}
+.htag{font-size:11px;padding:4px 14px;border:1px solid var(--border-mid);color:var(--text-lo);border-radius:99px;letter-spacing:.04em;}
+.htag.hi{border-color:rgba(29,185,84,.35);color:var(--accent);}
+
+/* ── MAIN CARD ── */
+.main{max-width:680px;margin:0 auto;padding:40px 20px 80px;}
+
+.card{background:var(--card);border:1px solid var(--card-border);border-radius:18px;padding:36px 40px;box-shadow:0 0 0 1px rgba(29,185,84,.04),0 24px 48px rgba(0,0,0,.4);}
+@media(max-width:600px){.card{padding:24px 18px;border-radius:14px;}}
+
+/* カードヘッダー */
+.card-head{margin-bottom:0;}
+.card-title{font-family:'Noto Sans JP',sans-serif;font-size:20px;font-weight:900;color:var(--accent);letter-spacing:.01em;margin-bottom:4px;}
+.card-desc{font-size:12px;color:var(--text-lo);line-height:1.7;}
+
+/* プログレス */
+.prog-wrap{margin:22px 0;}
+.prog-meta{display:flex;justify-content:space-between;font-size:11px;color:var(--text-lo);margin-bottom:7px;}
+.prog-track{height:2px;background:var(--border-lo);border-radius:1px;position:relative;}
+.prog-fill{height:2px;background:var(--accent);border-radius:1px;position:absolute;top:0;left:0;transition:width .45s cubic-bezier(.4,0,.2,1);}
+
+/* 質問 */
+.q-sect{font-size:10px;letter-spacing:.14em;color:var(--accent);opacity:.7;margin-bottom:8px;font-weight:500;}
+.q-text{font-size:19px;font-weight:700;color:var(--text-hi);line-height:1.45;margin-bottom:5px;}
+.q-sub{font-size:12px;color:var(--text-lo);margin-bottom:22px;line-height:1.7;}
+
+/* 選択肢 */
+.choices{display:flex;flex-direction:column;gap:9px;margin-bottom:26px;}
+.ch{display:flex;align-items:center;gap:15px;padding:15px 18px;border-radius:10px;border:1px solid var(--border-lo);background:rgba(255,255,255,.025);cursor:pointer;transition:border-color .15s,background .15s;text-align:left;font-family:'Noto Sans JP',sans-serif;width:100%;min-height:58px;}
+.ch:hover{border-color:rgba(29,185,84,.45);background:rgba(29,185,84,.04);}
+.ch.sel{border-color:var(--accent);background:rgba(29,185,84,.07);}
+.dot{width:19px;height:19px;border-radius:50%;border:2px solid var(--border-mid);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:border-color .15s;}
+.ch:hover .dot{border-color:rgba(29,185,84,.55);}
+.ch.sel .dot{border-color:var(--accent);}
+.dot-in{width:8px;height:8px;border-radius:50%;background:var(--accent);display:none;}
+.ch.sel .dot-in{display:block;}
+.ch-text{flex:1;}
+.ch-lbl{font-size:14px;font-weight:700;color:var(--text-hi);display:block;line-height:1.4;}
+.ch-hint{font-size:11px;color:var(--text-lo);display:block;margin-top:3px;}
+
+/* ナビ */
+.nav-btns{display:flex;gap:10px;align-items:center;}
+.btn-next{padding:11px 26px;border:none;background:var(--accent-dark);color:#fff;font-size:13px;font-weight:700;font-family:'Noto Sans JP',sans-serif;cursor:pointer;border-radius:8px;letter-spacing:.04em;transition:opacity .15s;}
+.btn-next:disabled{opacity:.18;cursor:default;}
+.btn-back{padding:11px 14px;border:1px solid var(--border-mid);background:transparent;color:var(--text-lo);font-size:12px;font-family:'Noto Sans JP',sans-serif;cursor:pointer;border-radius:8px;transition:all .15s;}
+.btn-back:hover{color:var(--text-mid);border-color:var(--border-mid);}
+
+/* ローディング */
+.loading{text-align:center;padding:48px 0;}
+.dots{display:flex;justify-content:center;gap:7px;margin-bottom:20px;}
+.dots span{width:7px;height:7px;background:var(--accent);border-radius:50%;animation:dp 1.4s ease-in-out infinite;}
+.dots span:nth-child(2){animation-delay:.22s;}
+.dots span:nth-child(3){animation-delay:.44s;}
+@keyframes dp{0%,100%{opacity:.2;transform:scale(.75)}50%{opacity:1;transform:scale(1.1)}}
+.loading p{font-size:13px;color:var(--text-lo);}
+
+/* ── 結果 ── */
+.result{animation:fadeUp .4s ease;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+
+.r-label{font-size:10px;letter-spacing:.12em;color:var(--text-lo);margin-bottom:12px;text-transform:uppercase;}
+
+/* 肌タイプバッジ */
+.type-badge-wrap{text-align:center;padding:24px 16px;border-radius:14px;margin-bottom:20px;}
+.type-badge{display:inline-block;font-size:22px;font-weight:900;padding:9px 28px;border-radius:99px;border-width:2px;border-style:solid;margin-bottom:10px;letter-spacing:.04em;}
+.type-en{font-size:11px;letter-spacing:.1em;opacity:.55;margin-bottom:14px;}
+.type-desc{font-size:13px;color:rgba(255,255,255,.7);line-height:1.9;text-align:left;max-width:460px;margin:0 auto;}
+
+/* インナードライ警告 */
+.innerdry-alert{background:rgba(245,196,0,.07);border:1px solid rgba(245,196,0,.3);border-radius:10px;padding:13px 16px;font-size:12px;color:rgba(245,196,0,.9);line-height:1.85;margin-bottom:18px;}
+
+/* 多軸スコア */
+.axes-title{font-size:11px;color:var(--text-lo);letter-spacing:.08em;margin-bottom:14px;}
+.axis-row{margin-bottom:14px;}
+.axis-meta{display:flex;justify-content:space-between;font-size:12px;margin-bottom:5px;}
+.axis-name{color:var(--text-mid);}
+.axis-val{color:var(--text-lo);}
+.axis-track{height:4px;background:var(--border-lo);border-radius:2px;overflow:hidden;}
+.axis-fill{height:100%;border-radius:2px;transition:width .85s cubic-bezier(.4,0,.2,1);}
+
+/* アドバイス */
+.ai-head{font-size:11px;color:var(--text-lo);letter-spacing:.08em;margin-bottom:7px;display:flex;align-items:center;gap:8px;}
+.ai-pill{font-size:10px;background:var(--accent-dark);color:#fff;padding:2px 8px;border-radius:4px;letter-spacing:.04em;}
+.ai-body{font-size:12px;color:var(--text-mid);line-height:1.95;padding:14px 16px;background:rgba(255,255,255,.03);border-radius:10px;border-left:3px solid var(--accent);white-space:pre-wrap;}
+
+/* アクション */
+.r-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px;}
+.btn-retry{padding:9px 18px;border:1px solid var(--border-mid);background:transparent;color:var(--text-lo);font-size:12px;font-family:'Noto Sans JP',sans-serif;cursor:pointer;border-radius:8px;transition:all .15s;}
+.btn-retry:hover{color:var(--text-mid);border-color:rgba(255,255,255,.25);}
+
+/* セクション区切り */
+.sec-div{height:1px;background:var(--border-lo);margin:22px 0;}
+
+/* ── フッター ── */
+footer{border-top:1px solid var(--border-lo);padding:28px 20px;text-align:center;}
+.foot-logo{font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:.06em;color:var(--text-lo);margin-bottom:8px;}
+.foot-txt{font-size:11px;color:rgba(255,255,255,.18);line-height:1.8;}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-in">
+    <a class="logo" href="#">MENS BIYOU ZUKAN <span>肌診断</span></a>
+    <span class="nav-badge">FREE · 12 QUESTIONS</span>
+  </div>
+</nav>
+
+<div class="hero">
+  <p class="hero-eye">Skin Type Diagnosis</p>
+  <h1><em>本当の肌タイプ</em>を<br>12問で正確に診断する</h1>
+  <p class="hero-sub">感覚じゃなく、皮脂・水分・バリア・敏感度を独立スコアリング。インナードライや敏感ニキビ肌も見逃さない。</p>
+  <div class="hero-tags">
+    <span class="htag hi">8タイプ判定</span>
+    <span class="htag hi">多軸スコア</span>
+    <span class="htag hi">AIアドバイス</span>
+    <span class="htag">登録不要</span>
+    <span class="htag">約3分</span>
+  </div>
+</div>
+
+<div class="main">
+  <div class="card">
+    <div class="card-head">
+      <div class="card-title">プロレベルの肌質診断</div>
+      <div class="card-desc">皮脂・水分・バリア・敏感度・生活習慣を5軸で評価。8タイプから最も近い肌質を特定します。</div>
+    </div>
+    <div class="prog-wrap">
+      <div class="prog-meta">
+        <span id="prog-label">質問 1 / 10</span>
+        <span id="prog-sect">皮脂分泌</span>
+      </div>
+      <div class="prog-track"><div class="prog-fill" id="prog-fill" style="width:5%"></div></div>
+    </div>
+    <div id="q-area"></div>
+  </div>
+</div>
+
+<footer>
+  <div class="foot-logo">MENS BIYOU ZUKAN</div>
+  <p class="foot-txt">本診断は一般的な美容情報に基づく参考情報です。医療的な診断ではありません。</p>
+</footer>
+
+<script>
+/* ═══════════════════════════════════════
+   12問 × 多軸スコアリング設計
+   各質問が独立した軸に貢献する
+═══════════════════════════════════════ */
+/* ═══════════════════════════════════════
+   皮膚科学ベース 12問診断
+   根拠：Baumann Skin Type Questionnaire
+        + 日本皮膚科学会ガイドライン
+        + TEWL（経皮水分蒸散量）概念
+   各軸に医学的重み(weight)を付与
+═══════════════════════════════════════ */
+const QS = [
+
+  // ── 軸1: 皮脂分泌量（Sebum Production）──
+  // 根拠：皮脂腺の分泌量は日内変動があるため
+  //       起床直後の未スキンケア状態が最も正確
+  {
+    id:'q1', sect:'皮脂分泌 — 起床直後', lbl:'Q1 / 12',
+    q:'朝起きてすぐ（洗顔前）、ティッシュを額と鼻に軽く当てるとどうなる？',
+    sub:'実際に試してみてください。スキンケア前・洗顔前の素の状態が重要です。',
+    axis:'sebum', weight:3,
+    ch:[
+      {l:'ほぼ何もつかない', h:'皮脂分泌が少ない（乾燥傾向）', v:0},
+      {l:'うっすら半透明になる程度', h:'皮脂量は正常範囲', v:1},
+      {l:'はっきり半透明〜油っぽくなる', h:'皮脂分泌がやや多い', v:2},
+      {l:'べったり油がつく', h:'皮脂分泌が過剰（日本皮膚科学会基準：脂性肌）', v:3},
+    ]
+  },
+  {
+    id:'q2', sect:'皮脂分泌 — 日中変化', lbl:'Q2 / 12',
+    q:'洗顔・スキンケア後、何時間くらいでテカりが気になりはじめる？',
+    sub:'皮脂の再分泌速度はセバメーター測定値と高い相関があります。',
+    axis:'sebum_rate', weight:2,
+    ch:[
+      {l:'1日中ほぼテカらない', h:'皮脂再分泌が少ない', v:0},
+      {l:'夕方ごろ（6〜8時間後）に少しテカる', h:'皮脂分泌は正常', v:1},
+      {l:'昼ごろ（3〜5時間後）にはテカる', h:'皮脂再分泌がやや速い', v:2},
+      {l:'2時間以内にもうテカっている', h:'皮脂腺の活動が活発（脂性肌の指標）', v:3},
+    ]
+  },
+
+  // ── 軸2: 角層水分量・TEWL（バリア機能）──
+  // 根拠：Corneometerによる角層水分量測定の
+  //       代替として「洗顔後放置テスト」を使用
+  //       （皮膚科の問診でも標準的に使われる方法）
+  {
+    id:'q3', sect:'角層水分量 — 洗顔後テスト', lbl:'Q3 / 12',
+    q:'洗顔後、何もつけず自然乾燥させると何分でつっぱりを感じる？',
+    sub:'このテストは角層水分量（Corneometer値）と相関することが研究で確認されています。',
+    axis:'tewl', weight:3,
+    ch:[
+      {l:'3分以内にかなり強いつっぱり', h:'角層水分量が著しく低下（乾燥肌の基準値以下）', v:0},
+      {l:'5〜10分でじわじわつっぱる', h:'角層水分量がやや低め', v:1},
+      {l:'20分以上経っても快適', h:'角層水分量は正常範囲', v:2},
+      {l:'つっぱらない。むしろ時間とともにテカる', h:'皮脂分泌が水分蒸発を補っている', v:3},
+    ]
+  },
+  {
+    id:'q4', sect:'バリア機能 — TEWL間接評価', lbl:'Q4 / 12',
+    q:'化粧水をつけた直後はしっとりするのに、30分〜1時間後には乾燥する？',
+    sub:'水分が早期に蒸発する＝TEWL（経皮水分蒸散量）が高い＝バリア機能低下のサインです。',
+    axis:'barrier', weight:3,
+    ch:[
+      {l:'しっとりが数時間持続する', h:'バリア機能が正常（TEWL低値）', v:0},
+      {l:'1〜2時間で乾燥を感じる', h:'バリア機能がやや低下', v:1},
+      {l:'30分以内にまた乾燥する', h:'バリア機能が低下（TEWL高値の可能性）', v:2},
+      {l:'そもそも化粧水を使っていない', h:'評価不能（スキンケア習慣なし）', v:-1},
+    ]
+  },
+
+  // ── 軸3: 部位別皮脂分布（混合肌診断）──
+  // 根拠：皮脂腺の分布密度はTゾーンで最大
+  //       （約400〜900個/cm²）、頬では少ない
+  //       この生理学的差異が混合肌を生む
+  {
+    id:'q5', sect:'部位別皮脂分布 — T/Uゾーン', lbl:'Q5 / 12',
+    q:'おでこ・鼻（Tゾーン）と頬・あご（Uゾーン）の皮脂量の差は？',
+    sub:'Tゾーンは皮脂腺密度が最大4倍高く、部位差が大きいほど混合肌の可能性が高まります。',
+    axis:'zone', weight:3,
+    ch:[
+      {l:'頬もおでこも同じくらいカサカサする', h:'全体的に乾燥傾向', v:0},
+      {l:'全体的に均一でほとんど差がない', h:'均一な皮脂分布', v:1},
+      {l:'Tゾーンだけ明らかにテカり、頬は乾燥〜普通', h:'典型的な混合肌パターン（皮脂腺密度差）', v:2},
+      {l:'Tゾーンが激しくテカり、頬もある程度テカる', h:'全体的に皮脂過多だがT優位', v:3},
+    ]
+  },
+
+  // ── 軸4: 皮膚感受性・炎症性（敏感肌診断）──
+  // 根拠：Favre教授の敏感肌定義
+  //       「主観的な不快感（刺激感・灼熱感）を
+  //       引き起こしやすい状態」+ IgE非依存性
+  {
+    id:'q6', sect:'皮膚感受性 — 刺激反応', lbl:'Q6 / 12',
+    q:'新しいスキンケア製品を使ったとき、ヒリヒリ・赤み・かゆみが出やすい？',
+    sub:'敏感肌の医学的定義は「正常なら刺激にならない物質に対して過剰反応する状態」です。',
+    axis:'sensitivity', weight:3,
+    ch:[
+      {l:'ほとんど反応しない', h:'皮膚感受性が正常', v:0},
+      {l:'強い製品（アルコール・レチノール等）では少し出る', h:'やや感受性高め（正常範囲内）', v:1},
+      {l:'普通の化粧水でもたまにヒリヒリする', h:'皮膚感受性が高い（敏感肌の可能性）', v:2},
+      {l:'多くのものでヒリヒリ・赤み・かゆみが出る', h:'高感受性肌（敏感肌診断基準を満たす）', v:3},
+    ]
+  },
+  {
+    id:'q7', sect:'皮膚感受性 — 物理的刺激', lbl:'Q7 / 12',
+    q:'タオルで顔を拭いた後、赤みや熱感が残ることがある？',
+    sub:'物理的摩擦への反応はバリア機能とニューロセンシティビティ（神経感受性）の指標です。',
+    axis:'phys_sens', weight:2,
+    ch:[
+      {l:'全くない', h:'物理的バリアが正常', v:0},
+      {l:'強く拭いたときだけ少し赤くなる', h:'軽度の感受性', v:1},
+      {l:'普通に拭いても赤みや熱感が残る', h:'バリア機能低下のサイン', v:2},
+      {l:'すぐ赤くなってしばらく治まらない', h:'毛細血管拡張・神経感受性亢進の可能性', v:3},
+    ]
+  },
+
+  // ── 軸5: 炎症・ニキビ（アクネ診断）──
+  // 根拠：日本皮膚科学会「尋常性痤瘡治療ガイドライン」
+  //       Grade I〜IVの重症度分類に準拠した質問設計
+  {
+    id:'q8', sect:'炎症・ニキビ重症度', lbl:'Q8 / 12',
+    q:'ニキビ（白ニキビ・黒ニキビ・赤ニキビ）の状態は？',
+    sub:'日本皮膚科学会のニキビ重症度分類（Grade I〜IV）に基づいて選んでください。',
+    axis:'acne', weight:2,
+    ch:[
+      {l:'ほぼ出ない（年に数個程度）', h:'Grade I 相当：軽微', v:0},
+      {l:'月に1〜3個程度、小さな白・黒ニキビが主', h:'Grade I〜II 相当：軽症', v:1},
+      {l:'常に5個以上。赤く炎症したニキビも出る', h:'Grade II〜III 相当：中等症', v:2},
+      {l:'多数かつ慢性的。膿を持つ大きなニキビも出る', h:'Grade III〜IV 相当：重症（皮膚科受診を推奨）', v:3},
+    ]
+  },
+
+  // ── 軸6: インナードライ複合評価 ──
+  // 根拠：インナードライは単一症状では診断できない
+  //       「皮脂分泌↑」×「角層水分量↓」の
+  //       矛盾した組み合わせを複数質問で確認する
+  {
+    id:'q9', sect:'インナードライ — 矛盾症状確認', lbl:'Q9 / 12',
+    q:'次のうち、自分に当てはまるものをすべて選ぶとしたら？（最も近い1つを選択）',
+    sub:'インナードライは「皮脂過多」と「水分不足」が同時に起きる状態。矛盾症状の数が多いほど可能性大。',
+    axis:'innerdry', weight:3,
+    ch:[
+      {l:'テカるし、乾燥もする。どちらも気になる', h:'矛盾症状が両立 → インナードライの強いサイン', v:3},
+      {l:'テカりはあるが乾燥はほぼ感じない', h:'皮脂過多のみ → 脂性肌の可能性', v:1},
+      {l:'乾燥はあるがテカりはほぼない', h:'水分不足のみ → 乾燥肌の可能性', v:0},
+      {l:'どちらも特に気にならない', h:'バランス型', v:0},
+    ]
+  },
+  {
+    id:'q10', sect:'インナードライ — 洗顔後の矛盾反応', lbl:'Q10 / 12',
+    q:'洗顔後しばらくは乾燥するが、時間が経つとテカってくる？',
+    sub:'洗顔後の乾燥→時間経過でテカりの流れは、インナードライの教科書的パターンです。',
+    axis:'innerdry2', weight:3,
+    ch:[
+      {l:'はい、まさにそのパターン', h:'インナードライの典型的パターン（診断精度が高い）', v:3},
+      {l:'洗顔後ずっと乾燥したまま', h:'乾燥肌パターン', v:0},
+      {l:'洗顔後からすでにテカっている', h:'脂性肌パターン', v:1},
+      {l:'あまり変化を感じない', h:'普通肌パターン', v:0},
+    ]
+  },
+
+  // ── 軸7: 色素沈着・くすみ（色素型評価）──
+  // 根拠：Fitzpatrickスキンタイプ概念の応用
+  //       + メラニン産生傾向の主観的評価
+  {
+    id:'q11', sect:'色素沈着・くすみ傾向', lbl:'Q11 / 12',
+    q:'ニキビ跡や肌荒れ跡が茶色く残りやすい？日焼けのムラが出やすい？',
+    sub:'メラニン産生過剰（色素沈着傾向）は肌タイプと炎症の深さに関係します。',
+    axis:'pigment', weight:1,
+    ch:[
+      {l:'ニキビ跡はすぐ消え、日焼けも均一', h:'色素産生が安定・正常', v:0},
+      {l:'少し跡が残るが1〜2ヶ月で消える', h:'軽度の色素沈着傾向', v:1},
+      {l:'跡が3ヶ月以上残ることが多い', h:'中程度の色素沈着傾向', v:2},
+      {l:'跡がなかなか消えず、くすみも気になる', h:'色素沈着しやすい肌質', v:3},
+    ]
+  },
+
+  // ── 軸8: 生活習慣・環境因子 ──
+  // 根拠：コルチゾール（ストレスホルモン）は
+  //       皮脂分泌を増加させ、睡眠不足は
+  //       バリア機能（セラミド合成）を低下させる
+  {
+    id:'q12', sect:'生活習慣 — 肌への影響因子', lbl:'Q12 / 12',
+    q:'睡眠・ストレス・食事の状態は？',
+    sub:'睡眠不足はセラミド合成を抑制しバリア機能を低下させます。ストレスはコルチゾールを介して皮脂分泌を増加させます。',
+    axis:'lifestyle', weight:1,
+    ch:[
+      {l:'睡眠不足かつストレス多め、食事も不規則', h:'コルチゾール過剰・セラミド合成低下リスク大', v:0},
+      {l:'どれか1つは問題がある', h:'部分的な生活習慣リスク', v:1},
+      {l:'だいたい整っている', h:'生活習慣による肌負担は少ない', v:2},
+      {l:'睡眠7h以上・低ストレス・バランスの良い食事', h:'肌のホメオスタシスが維持されやすい環境', v:3},
+    ]
+  },
+];
+
+/* ═══════════════════════════════════════
+   8タイプ定義
+═══════════════════════════════════════ */
+const TYPES = {
+  innerdry:{
+    label:'インナードライ肌', en:'Inner Dry (Combination Dry)',
+    color:'#f5c400', bg:'rgba(245,196,0,.09)', border:'rgba(245,196,0,.38)',
+    desc:'テカりがあるのに奥では乾燥している、最も誤解されやすい肌タイプ。皮脂を出してバリアを作ろうとしているサインで、油分カットのケアは逆効果。水分補給と保湿の強化が最優先です。',
+    warn:true,
+    ngcare:'皮脂を落とそうとして洗顔を1日3回以上したり、ノンオイルのさっぱり系化粧水だけで済ませると乾燥が加速します。',
+  },
+  oily_acne:{
+    label:'脂性ニキビ肌', en:'Oily Acne-Prone Skin',
+    color:'#c084fc', bg:'rgba(192,132,252,.08)', border:'rgba(192,132,252,.35)',
+    desc:'皮脂分泌が多く、毛穴づまりやニキビが繰り返しやすいタイプ。薬用成分（サリチル酸・グリチルリチン酸）で皮脂とニキビを同時にケアする化粧水が必要です。',
+    warn:false,
+    ngcare:'保湿力が高すぎる化粧水（ヒアルロン酸系の高粘度タイプ）は毛穴を詰まらせニキビを悪化させることがあります。',
+  },
+  sensitive_acne:{
+    label:'敏感ニキビ肌', en:'Sensitive Acne-Prone Skin',
+    color:'#fb923c', bg:'rgba(251,146,60,.08)', border:'rgba(251,146,60,.35)',
+    desc:'敏感肌なのにニキビも出るという難しい肌タイプ。刺激の強い薬用成分は使えないため、低刺激処方でニキビケアできる数少ない選択肢から選ぶ必要があります。',
+    warn:false,
+    ngcare:'アルコール含有の薬用化粧水は敏感肌のヒリヒリを悪化させます。「薬用＝良い」という思い込みに注意。',
+  },
+  sensitive:{
+    label:'敏感肌', en:'Sensitive Skin',
+    color:'#34d399', bg:'rgba(52,211,153,.08)', border:'rgba(52,211,153,.35)',
+    desc:'肌のバリア機能が低下しており、外部刺激を受けやすい状態。アルコール・香料・界面活性剤を避け、セラミドやコラーゲンなどバリア補強成分を選ぶことが重要です。',
+    warn:false,
+    ngcare:'香料入り・アルコール高配合のコスパ系化粧水はNG。初期費用を節約すると肌トラブルが増えて結局高くつきます。',
+  },
+  combo:{
+    label:'混合肌', en:'Combination Skin',
+    color:'#a78bfa', bg:'rgba(167,139,250,.08)', border:'rgba(167,139,250,.35)',
+    desc:'TゾーンとUゾーンで皮脂量が異なる典型的な混合肌。部位別のケアが最も効果的で、Tゾーンはさっぱり系・Uゾーンは保湿系と使い分けることで劇的に改善することがあります。',
+    warn:false,
+    ngcare:'全顔に同じ化粧水を同量塗るのが最大のNG。Tゾーンに保湿しすぎるとニキビに、Uゾーンにさっぱりすぎると乾燥になります。',
+  },
+  oily:{
+    label:'オイリー肌（脂性肌）', en:'Oily Skin',
+    color:'#1db954', bg:'rgba(29,185,84,.08)', border:'rgba(29,185,84,.35)',
+    desc:'全体的に皮脂分泌が多く、テカリや毛穴づまりが出やすいタイプ。さっぱり系化粧水で皮脂をコントロールしつつ、適切な保湿でバリア機能を維持することが鍵です。',
+    warn:false,
+    ngcare:'皮脂が多いからといって洗顔を過剰にすると、バリア機能が壊れてさらに皮脂を出そうとします。洗顔は朝晩2回まで。',
+  },
+  dry:{
+    label:'乾燥肌', en:'Dry Skin',
+    color:'#60a5fa', bg:'rgba(96,165,250,.08)', border:'rgba(96,165,250,.35)',
+    desc:'水分・皮脂の両方が少なく、バリア機能が低下しているタイプ。ヒアルロン酸・セラミド・コラーゲンなど高保湿成分配合の化粧水を選び、洗顔のしすぎを避けることが最優先です。',
+    warn:false,
+    ngcare:'「乾燥しているから」と乳液・クリームを大量に塗るより、化粧水の量を増やして水分を先に補給するほうが効果的です。',
+  },
+  normal:{
+    label:'普通肌', en:'Normal Skin',
+    color:'#94a3b8', bg:'rgba(148,163,184,.08)', border:'rgba(148,163,184,.35)',
+    desc:'水分と皮脂のバランスが取れた理想的な肌状態。現状を維持しながら、紫外線対策やエイジングケアを早めに意識することで10年後の肌に差が出ます。',
+    warn:false,
+    ngcare:'「普通肌だから何もしなくていい」という油断が最大のNG。20代の普通肌も30代になると一気に変わります。',
+  },
+};
+
+/* ═══════════════════════════════════════
+   スコア計算・タイプ判定
+═══════════════════════════════════════ */
+/* ═══════════════════════════════════════
+   皮膚科学ベース スコアリングエンジン
+   各軸を独立して評価し、重み付き合算で判定
+═══════════════════════════════════════ */
+function calcScores(ans){
+  const r = {};
+  QS.forEach(q=>{
+    if(ans[q.id] !== undefined){
+      const v = q.ch[ans[q.id]].v;
+      if(v >= 0) r[q.axis] = {v, w: q.weight};
+    }
+  });
+
+  // ── 皮脂スコア（重み付き平均）
+  // sebum(w3) + sebum_rate(w2) を統合
+  const sebumRaw = ((r.sebum?.v??0)*3 + (r.sebum_rate?.v??0)*2) / 5;
+
+  // ── 乾燥・バリアスコア
+  // TEWL(w3) + barrier(w3) を統合。v=-1は除外
+  const tewlV    = r.tewl?.v ?? 1;
+  const barrierV = r.barrier?.v === -1 ? 1 : (r.barrier?.v ?? 1);
+  // 乾燥方向に変換（低v=高乾燥）
+  const dryRaw   = ((3-tewlV)*3 + (barrierV<=1?3-barrierV:0)*3) / 6;
+
+  // ── 部位差スコア（zone）
+  const zoneV = r.zone?.v ?? 1;
+
+  // ── 感受性スコア（sensitivity + phys_sens 重み付き）
+  const sensRaw = ((r.sensitivity?.v??0)*3 + (r.phys_sens?.v??0)*2) / 5;
+
+  // ── ニキビスコア
+  const acneV = r.acne?.v ?? 0;
+
+  // ── インナードライスコア（2問の複合判定）
+  // innerdry(w3) + innerdry2(w3) を合算
+  const idV1 = r.innerdry?.v ?? 0;   // 0〜3
+  const idV2 = r.innerdry2?.v ?? 0;  // 0〜3
+  const innerdryScore = (idV1 * 3 + idV2 * 3) / 6; // 0〜3
+
+  // ── 色素沈着
+  const pigmentV = r.pigment?.v ?? 0;
+
+  // ── 生活習慣（補正因子）
+  const lifestyleV = r.lifestyle?.v ?? 1;
+  // 生活習慣が悪いと乾燥・皮脂スコアを補正
+  const lifeCorr = lifestyleV === 0 ? 0.3 : lifestyleV === 1 ? 0.1 : 0;
+
+  // ── 表示用スコア（0〜100%）
+  const sebumPct   = Math.min(Math.round((sebumRaw / 3) * 100), 100);
+  const dryPct     = Math.min(Math.round((dryRaw   / 3) * 100 + lifeCorr*15), 100);
+  const sensPct    = Math.min(Math.round((sensRaw   / 3) * 100), 100);
+  const acnePct    = Math.min(Math.round((acneV     / 3) * 100), 100);
+  const barrierPct = Math.max(0, Math.min(Math.round(100 - dryPct*0.6 - sensPct*0.3), 100));
+  const lifePct    = Math.round((lifestyleV / 3) * 100);
+
+  return {
+    sebumRaw, dryRaw, zoneV, sensRaw, acneV,
+    innerdryScore, pigmentV, lifestyleV,
+    axes:{ sebumPct, dryPct, sensPct, acnePct, barrierPct, lifePct }
+  };
+}
+
+function classifyType(sc){
+  const {sebumRaw, dryRaw, zoneV, sensRaw, acneV, innerdryScore} = sc;
+
+  // ── インナードライ判定（複合スコア閾値）
+  // 2問の重み付き合算 ≥ 2 かつ 皮脂高め かつ 乾燥あり
+  const isInnerdry = innerdryScore >= 2 && sebumRaw >= 1.5 && dryRaw >= 1;
+
+  // ── 敏感肌判定（感受性スコア閾値）
+  const isSensitive = sensRaw >= 1.8;
+
+  // ── ニキビ判定
+  const hasAcne = acneV >= 2;
+
+  // ── 混合肌判定（部位差）
+  const isCombo = zoneV === 2;
+
+  // ── 脂性判定
+  const isOily = sebumRaw >= 2;
+
+  // ── 乾燥判定
+  const isDry = dryRaw >= 2;
+
+  /* 判定ツリー（医学的優先順位）
+     1. インナードライ（最も見逃されやすく重要）
+     2. 敏感ニキビ（ケア方針が真逆になるため分離必須）
+     3. 敏感肌
+     4. 脂性ニキビ
+     5. 混合肌
+     6. 脂性肌
+     7. 乾燥肌
+     8. 普通肌                              */
+  if(isInnerdry)                        return TYPES.innerdry;
+  if(isSensitive && hasAcne)            return TYPES.sensitive_acne;
+  if(isSensitive)                       return TYPES.sensitive;
+  if(isOily && hasAcne)                 return TYPES.oily_acne;
+  if(isCombo)                           return TYPES.combo;
+  if(isOily)                            return TYPES.oily;
+  if(isDry)                             return TYPES.dry;
+  return TYPES.normal;
+}
+
+/* ═══════════════════════════════════════
+   UI ロジック
+═══════════════════════════════════════ */
+let ans = {}, cur = 0;
+
+function renderQ(i){
+  const q = QS[i];
+  const pct = Math.round((i / QS.length) * 100) + 5;
+  document.getElementById('prog-fill').style.width = Math.min(pct, 95) + '%';
+  document.getElementById('prog-label').textContent = `質問 ${i+1} / ${QS.length}`;
+  document.getElementById('prog-sect').textContent  = q.sect;
+
+  const sel = ans[q.id];
+  const isLast = i === QS.length - 1;
+
+  document.getElementById('q-area').innerHTML = `
+    <div style="animation:fadeUp .28s ease">
+      <div class="q-sect">${q.sect}</div>
+      <div class="q-text">${q.q}</div>
+      <div class="q-sub">${q.sub}</div>
+      <div class="choices">
+        ${q.ch.map((c,ci) => `
+          <button class="ch ${sel===ci?'sel':''}" id="ch${ci}" onclick="pick('${q.id}',${ci},${q.ch.length})">
+            <div class="dot"><div class="dot-in"></div></div>
+            <div class="ch-text">
+              <span class="ch-lbl">${c.l}</span>
+              ${c.h?`<span class="ch-hint">${c.h}</span>`:''}
+            </div>
+          </button>`).join('')}
+      </div>
+      <div class="nav-btns">
+        ${i>0?'<button class="btn-back" onclick="goBack()">← 戻る</button>':''}
+        <button class="btn-next" id="btn-next" onclick="goNext()" ${sel!==undefined?'':'disabled'}>
+          ${isLast ? '診断する →' : '次へ →'}
+        </button>
+      </div>
+    </div>`;
+}
+
+function pick(qid, ci, total){
+  ans[qid] = ci;
+  for(let i=0;i<total;i++) document.getElementById('ch'+i)?.classList.remove('sel');
+  document.getElementById('ch'+ci)?.classList.add('sel');
+  document.getElementById('btn-next').disabled = false;
+}
+function goNext(){
+  if(ans[QS[cur].id] === undefined) return;
+  cur++;
+  if(cur >= QS.length) showLoading();
+  else renderQ(cur);
+}
+function goBack(){
+  if(cur > 0){ cur--; renderQ(cur); }
+}
+
+function showLoading(){
+  document.getElementById('prog-fill').style.width = '100%';
+  document.getElementById('prog-label').textContent = '分析中…';
+  document.getElementById('prog-sect').textContent  = '';
+  document.getElementById('q-area').innerHTML = `
+    <div class="loading">
+      <div class="dots"><span></span><span></span><span></span></div>
+      <p>肌質を多軸で分析しています…</p>
+    </div>`;
+  setTimeout(showResult, 1300);
+}
+
+/* ═══════════════════════════════════════
+   商品データ（タイプ別おすすめ化粧水）
+═══════════════════════════════════════ */
+
+/* ═══════════════════════════════════════
+   肌タイプ別 SVGイラスト生成
+═══════════════════════════════════════ */
+function getSkinSVG(key){
+  const svgs = {
+    innerdry: `<svg viewBox="0 0 280 200" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
+      <defs>
+        <radialGradient id="bg_id" cx="50%" cy="50%"><stop offset="0%" stop-color="#2a2010"/><stop offset="100%" stop-color="#0d0d0b"/></radialGradient>
+        <radialGradient id="face_id" cx="50%" cy="45%"><stop offset="0%" stop-color="#c8a882"/><stop offset="100%" stop-color="#a07850"/></radialGradient>
+        <radialGradient id="glow_id" cx="50%" cy="30%"><stop offset="0%" stop-color="#f5c400" stop-opacity=".7"/><stop offset="100%" stop-color="#f5c400" stop-opacity="0"/></radialGradient>
+      </defs>
+      <rect width="280" height="200" fill="url(#bg_id)"/>
+      <!-- 顔 -->
+      <ellipse cx="140" cy="105" rx="62" ry="76" fill="url(#face_id)"/>
+      <!-- テカり（Tゾーン） -->
+      <ellipse cx="140" cy="80" rx="22" ry="28" fill="url(#glow_id)"/>
+      <ellipse cx="140" cy="108" rx="10" ry="18" fill="url(#glow_id)" opacity=".6"/>
+      <!-- ひび割れライン（乾燥表現） -->
+      <g stroke="#c89a60" stroke-width="0.8" opacity=".5">
+        <path d="M108 120 l4-8 l3 5 l4-10" fill="none"/>
+        <path d="M165 125 l-3-7 l-4 4 l-2-8" fill="none"/>
+        <path d="M120 140 l5-6 l2 4" fill="none"/>
+      </g>
+      <!-- 目 -->
+      <ellipse cx="118" cy="95" rx="9" ry="6" fill="#1a0e05"/>
+      <ellipse cx="162" cy="95" rx="9" ry="6" fill="#1a0e05"/>
+      <ellipse cx="120" cy="93" rx="2.5" ry="2" fill="#fff" opacity=".8"/>
+      <ellipse cx="164" cy="93" rx="2.5" ry="2" fill="#fff" opacity=".8"/>
+      <!-- 鼻 -->
+      <path d="M136 110 q4 8 8 0" stroke="#8a6040" stroke-width="1.2" fill="none"/>
+      <!-- 口 -->
+      <path d="M128 135 q12 6 24 0" stroke="#8a6040" stroke-width="1.5" fill="none"/>
+      <!-- 注釈 -->
+      <text x="20" y="30" font-family="sans-serif" font-size="10" fill="#f5c400" opacity=".9">表面：皮脂 ↑</text>
+      <text x="20" y="44" font-family="sans-serif" font-size="10" fill="#60a5fa" opacity=".9">内側：水分 ↓</text>
+      <text x="140" y="185" font-family="sans-serif" font-size="11" fill="#f5c400" text-anchor="middle" font-weight="bold">Inner Dry</text>
+    </svg>`,
+
+    oily_acne: `<svg viewBox="0 0 280 200" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
+      <defs>
+        <radialGradient id="bg_oa" cx="50%" cy="50%"><stop offset="0%" stop-color="#1a1a2a"/><stop offset="100%" stop-color="#0d0d0b"/></radialGradient>
+        <radialGradient id="face_oa" cx="50%" cy="45%"><stop offset="0%" stop-color="#b8906a"/><stop offset="100%" stop-color="#8a6040"/></radialGradient>
+        <radialGradient id="shine_oa" cx="50%" cy="30%"><stop offset="0%" stop-color="#c084fc" stop-opacity=".5"/><stop offset="100%" stop-color="#c084fc" stop-opacity="0"/></radialGradient>
+      </defs>
+      <rect width="280" height="200" fill="url(#bg_oa)"/>
+      <ellipse cx="140" cy="105" rx="62" ry="76" fill="url(#face_oa)"/>
+      <!-- テカり強め -->
+      <ellipse cx="140" cy="75" rx="30" ry="32" fill="url(#shine_oa)"/>
+      <!-- ニキビ -->
+      <circle cx="115" cy="118" r="5" fill="#c084fc" opacity=".8"/>
+      <circle cx="115" cy="118" r="3" fill="#e9b8ff"/>
+      <circle cx="165" cy="112" r="4" fill="#c084fc" opacity=".7"/>
+      <circle cx="165" cy="112" r="2.5" fill="#e9b8ff"/>
+      <circle cx="130" cy="140" r="3.5" fill="#c084fc" opacity=".6"/>
+      <circle cx="152" cy="138" r="3" fill="#c084fc" opacity=".6"/>
+      <!-- 毛穴 -->
+      <g fill="#7a5030" opacity=".6">
+        <circle cx="132" cy="108" r="2"/><circle cx="142" cy="106" r="1.8"/><circle cx="152" cy="108" r="2"/>
+        <circle cx="137" cy="115" r="1.5"/><circle cx="148" cy="113" r="1.8"/>
+      </g>
+      <!-- 目 -->
+      <ellipse cx="118" cy="95" rx="9" ry="6" fill="#1a0e05"/>
+      <ellipse cx="162" cy="95" rx="9" ry="6" fill="#1a0e05"/>
+      <ellipse cx="120" cy="93" rx="2.5" ry="2" fill="#fff" opacity=".8"/>
+      <ellipse cx="164" cy="93" rx="2.5" ry="2" fill="#fff" opacity=".8"/>
+      <path d="M136 110 q4 8 8 0" stroke="#7a5030" stroke-width="1.2" fill="none"/>
+      <path d="M128 135 q12 4 24 0" stroke="#7a5030" stroke-width="1.5" fill="none"/>
+      <text x="140" y="185" font-family="sans-serif" font-size="11" fill="#c084fc" text-anchor="middle" font-weight="bold">Oily Acne</text>
+    </svg>`,
+
+    sensitive_acne: `<svg viewBox="0 0 280 200" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
+      <defs>
+        <radialGradient id="bg_sa" cx="50%" cy="50%"><stop offset="0%" stop-color="#2a1010"/><stop offset="100%" stop-color="#0d0d0b"/></radialGradient>
+        <radialGradient id="face_sa" cx="50%" cy="45%"><stop offset="0%" stop-color="#d4a090"/><stop offset="100%" stop-color="#b07868"/></radialGradient>
+      </defs>
+      <rect width="280" height="200" fill="url(#bg_sa)"/>
+      <ellipse cx="140" cy="105" rx="62" ry="76" fill="url(#face_sa)"/>
+      <!-- 赤み -->
+      <ellipse cx="115" cy="112" rx="18" ry="12" fill="#f87171" opacity=".35"/>
+      <ellipse cx="165" cy="112" rx="18" ry="12" fill="#f87171" opacity=".35"/>
+      <ellipse cx="140" cy="78" rx="16" ry="10" fill="#f87171" opacity=".2"/>
+      <!-- ニキビ（小さめ） -->
+      <circle cx="118" cy="115" r="3.5" fill="#fb923c" opacity=".8"/>
+      <circle cx="160" cy="118" r="3" fill="#fb923c" opacity=".7"/>
+      <circle cx="140" cy="138" r="2.5" fill="#fb923c" opacity=".6"/>
+      <!-- 目 -->
+      <ellipse cx="118" cy="95" rx="9" ry="6" fill="#2a1010"/>
+      <ellipse cx="162" cy="95" rx="9" ry="6" fill="#2a1010"/>
+      <ellipse cx="120" cy="93" rx="2.5" ry="2" fill="#fff" opacity=".8"/>
+      <ellipse cx="164" cy="93" rx="2.5" ry="2" fill="#fff" opacity=".8"/>
+      <path d="M136 110 q4 8 8 0" stroke="#906050" stroke-width="1.2" fill="none"/>
+      <path d="M128 132 q12 3 24 0" stroke="#906050" stroke-width="1.5" fill="none"/>
+      <text x="140" y="185" font-family="sans-serif" font-size="11" fill="#fb923c" text-anchor="middle" font-weight="bold">Sensitive Acne</text>
+    </svg>`,
+
+    sensitive: `<svg viewBox="0 0 280 200" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
+      <defs>
+        <radialGradient id="bg_s" cx="50%" cy="50%"><stop offset="0%" stop-color="#1a1a10"/><stop offset="100%" stop-color="#0d0d0b"/></radialGradient>
+        <radialGradient id="face_s" cx="50%" cy="45%"><stop offset="0%" stop-color="#d4b8a8"/><stop offset="100%" stop-color="#b09080"/></radialGradient>
+      </defs>
+      <rect width="280" height="200" fill="url(#bg_s)"/>
+      <ellipse cx="140" cy="105" rx="62" ry="76" fill="url(#face_s)"/>
+      <!-- 赤み（広範囲） -->
+      <ellipse cx="113" cy="110" rx="22" ry="16" fill="#f87171" opacity=".3"/>
+      <ellipse cx="167" cy="110" rx="22" ry="16" fill="#f87171" opacity=".3"/>
+      <!-- かゆみ表現（波線） -->
+      <g stroke="#f87171" stroke-width="1" fill="none" opacity=".6">
+        <path d="M95 130 q5-4 10 0 q5 4 10 0"/>
+        <path d="M165 133 q5-4 10 0 q5 4 10 0"/>
+      </g>
+      <!-- 目 -->
+      <ellipse cx="118" cy="95" rx="9" ry="6" fill="#2a1a1a"/>
+      <ellipse cx="162" cy="95" rx="9" ry="6" fill="#2a1a1a"/>
+      <ellipse cx="120" cy="93" rx="2.5" ry="2" fill="#fff" opacity=".8"/>
+      <ellipse cx="164" cy="93" rx="2.5" ry="2" fill="#fff" opacity=".8"/>
+      <path d="M136 110 q4 8 8 0" stroke="#907060" stroke-width="1.2" fill="none"/>
+      <path d="M128 132 q12 3 24 0" stroke="#907060" stroke-width="1.5" fill="none"/>
+      <text x="140" y="185" font-family="sans-serif" font-size="11" fill="#34d399" text-anchor="middle" font-weight="bold">Sensitive</text>
+    </svg>`,
+
+    combo: `<svg viewBox="0 0 280 200" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
+      <defs>
+        <radialGradient id="bg_c" cx="50%" cy="50%"><stop offset="0%" stop-color="#1a1020"/><stop offset="100%" stop-color="#0d0d0b"/></radialGradient>
+        <radialGradient id="face_c" cx="50%" cy="45%"><stop offset="0%" stop-color="#c8a070"/><stop offset="100%" stop-color="#9a7850"/></radialGradient>
+        <radialGradient id="t_glow" cx="50%" cy="20%"><stop offset="0%" stop-color="#a78bfa" stop-opacity=".6"/><stop offset="100%" stop-color="#a78bfa" stop-opacity="0"/></radialGradient>
+      </defs>
+      <rect width="280" height="200" fill="url(#bg_c)"/>
+      <ellipse cx="140" cy="105" rx="62" ry="76" fill="url(#face_c)"/>
+      <!-- Tゾーンテカり -->
+      <ellipse cx="140" cy="78" rx="20" ry="26" fill="url(#t_glow)"/>
+      <ellipse cx="140" cy="108" rx="8" ry="14" fill="url(#t_glow)" opacity=".7"/>
+      <!-- Uゾーン乾燥（ひび） -->
+      <g stroke="#c8a070" stroke-width="0.7" opacity=".4" fill="none">
+        <path d="M100 115 l3-6 l2 4 l3-7"/>
+        <path d="M175 118 l-3-5 l-2 3 l-3-6"/>
+      </g>
+      <!-- T/Uゾーンラベル -->
+      <text x="140" y="66" font-family="sans-serif" font-size="9" fill="#a78bfa" text-anchor="middle" opacity=".8">T</text>
+      <text x="100" y="112" font-family="sans-serif" font-size="9" fill="#60a5fa" text-anchor="middle" opacity=".7">U</text>
+      <text x="180" y="112" font-family="sans-serif" font-size="9" fill="#60a5fa" text-anchor="middle" opacity=".7">U</text>
+      <!-- 目 -->
+      <ellipse cx="118" cy="95" rx="9" ry="6" fill="#1a0e05"/>
+      <ellipse cx="162" cy="95" rx="9" ry="6" fill="#1a0e05"/>
+      <ellipse cx="120" cy="93" rx="2.5" ry="2" fill="#fff" opacity=".8"/>
+      <ellipse cx="164" cy="93" rx="2.5" ry="2" fill="#fff" opacity=".8"/>
+      <path d="M136 110 q4 8 8 0" stroke="#8a6040" stroke-width="1.2" fill="none"/>
+      <path d="M128 133 q12 5 24 0" stroke="#8a6040" stroke-width="1.5" fill="none"/>
+      <text x="140" y="185" font-family="sans-serif" font-size="11" fill="#a78bfa" text-anchor="middle" font-weight="bold">Combination</text>
+    </svg>`,
+
+    oily: `<svg viewBox="0 0 280 200" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
+      <defs>
+        <radialGradient id="bg_o" cx="50%" cy="50%"><stop offset="0%" stop-color="#0a1a0a"/><stop offset="100%" stop-color="#0d0d0b"/></radialGradient>
+        <radialGradient id="face_o" cx="50%" cy="45%"><stop offset="0%" stop-color="#b8986a"/><stop offset="100%" stop-color="#8a7050"/></radialGradient>
+        <radialGradient id="shine_o" cx="50%" cy="25%"><stop offset="0%" stop-color="#1db954" stop-opacity=".55"/><stop offset="100%" stop-color="#1db954" stop-opacity="0"/></radialGradient>
+      </defs>
+      <rect width="280" height="200" fill="url(#bg_o)"/>
+      <ellipse cx="140" cy="105" rx="62" ry="76" fill="url(#face_o)"/>
+      <!-- 全体テカり -->
+      <ellipse cx="140" cy="82" rx="38" ry="38" fill="url(#shine_o)"/>
+      <ellipse cx="115" cy="112" rx="14" ry="10" fill="url(#shine_o)" opacity=".5"/>
+      <ellipse cx="165" cy="112" rx="14" ry="10" fill="url(#shine_o)" opacity=".5"/>
+      <!-- 毛穴 -->
+      <g fill="#7a6040" opacity=".5">
+        <circle cx="130" cy="107" r="2.2"/><circle cx="140" cy="105" r="2"/><circle cx="150" cy="107" r="2.2"/>
+        <circle cx="135" cy="113" r="1.8"/><circle cx="145" cy="112" r="2"/>
+        <circle cx="125" cy="118" r="1.5"/><circle cx="155" cy="116" r="1.5"/>
+      </g>
+      <!-- 目 -->
+      <ellipse cx="118" cy="95" rx="9" ry="6" fill="#1a1005"/>
+      <ellipse cx="162" cy="95" rx="9" ry="6" fill="#1a1005"/>
+      <ellipse cx="120" cy="93" rx="2.5" ry="2" fill="#fff" opacity=".8"/>
+      <ellipse cx="164" cy="93" rx="2.5" ry="2" fill="#fff" opacity=".8"/>
+      <path d="M136 110 q4 8 8 0" stroke="#7a6040" stroke-width="1.2" fill="none"/>
+      <path d="M128 134 q12 5 24 0" stroke="#7a6040" stroke-width="1.5" fill="none"/>
+      <text x="140" y="185" font-family="sans-serif" font-size="11" fill="#1db954" text-anchor="middle" font-weight="bold">Oily</text>
+    </svg>`,
+
+    dry: `<svg viewBox="0 0 280 200" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
+      <defs>
+        <radialGradient id="bg_d" cx="50%" cy="50%"><stop offset="0%" stop-color="#0a1020"/><stop offset="100%" stop-color="#0d0d0b"/></radialGradient>
+        <radialGradient id="face_d" cx="50%" cy="45%"><stop offset="0%" stop-color="#c0a888"/><stop offset="100%" stop-color="#9a8068"/></radialGradient>
+      </defs>
+      <rect width="280" height="200" fill="url(#bg_d)"/>
+      <ellipse cx="140" cy="105" rx="62" ry="76" fill="url(#face_d)"/>
+      <!-- ひび割れ多め -->
+      <g stroke="#c0a888" stroke-width="0.9" fill="none" opacity=".55">
+        <path d="M108 105 l5-9 l3 6 l4-11 l2 5"/>
+        <path d="M164 108 l-4-8 l-3 5 l-5-10 l-2 6"/>
+        <path d="M120 128 l4-7 l2 5 l3-8"/>
+        <path d="M155 130 l-3-6 l-2 4 l-4-7"/>
+        <path d="M132 148 l3-5 l2 3 l3-6"/>
+      </g>
+      <!-- 水分ゼロ感（くすみ） -->
+      <ellipse cx="140" cy="105" rx="60" ry="74" fill="rgba(0,0,0,.15)"/>
+      <!-- 目 -->
+      <ellipse cx="118" cy="95" rx="9" ry="6" fill="#1a1008"/>
+      <ellipse cx="162" cy="95" rx="9" ry="6" fill="#1a1008"/>
+      <ellipse cx="120" cy="93" rx="2.5" ry="2" fill="#fff" opacity=".7"/>
+      <ellipse cx="164" cy="93" rx="2.5" ry="2" fill="#fff" opacity=".7"/>
+      <path d="M136 110 q4 8 8 0" stroke="#9a8068" stroke-width="1.2" fill="none"/>
+      <path d="M128 132 q12 3 24 0" stroke="#9a8068" stroke-width="1.5" fill="none"/>
+      <text x="140" y="185" font-family="sans-serif" font-size="11" fill="#60a5fa" text-anchor="middle" font-weight="bold">Dry</text>
+    </svg>`,
+
+    normal: `<svg viewBox="0 0 280 200" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
+      <defs>
+        <radialGradient id="bg_n" cx="50%" cy="50%"><stop offset="0%" stop-color="#101820"/><stop offset="100%" stop-color="#0d0d0b"/></radialGradient>
+        <radialGradient id="face_n" cx="50%" cy="40%"><stop offset="0%" stop-color="#d0b090"/><stop offset="50%" stop-color="#b89070"/><stop offset="100%" stop-color="#9a7858"/></radialGradient>
+        <radialGradient id="glow_n" cx="50%" cy="30%"><stop offset="0%" stop-color="#94a3b8" stop-opacity=".3"/><stop offset="100%" stop-color="#94a3b8" stop-opacity="0"/></radialGradient>
+      </defs>
+      <rect width="280" height="200" fill="url(#bg_n)"/>
+      <ellipse cx="140" cy="105" rx="62" ry="76" fill="url(#face_n)"/>
+      <!-- 自然なツヤ -->
+      <ellipse cx="140" cy="80" rx="24" ry="20" fill="url(#glow_n)"/>
+      <!-- キメ細かさの表現（細かいドット） -->
+      <g fill="#b89070" opacity=".25">
+        <circle cx="118" cy="108" r="1"/><circle cx="124" cy="115" r=".8"/>
+        <circle cx="156" cy="110" r="1"/><circle cx="162" cy="117" r=".8"/>
+        <circle cx="135" cy="120" r=".9"/><circle cx="145" cy="118" r=".8"/>
+      </g>
+      <!-- 目（明るめ） -->
+      <ellipse cx="118" cy="95" rx="9" ry="6.5" fill="#1a1008"/>
+      <ellipse cx="162" cy="95" rx="9" ry="6.5" fill="#1a1008"/>
+      <ellipse cx="120" cy="92" rx="3" ry="2.2" fill="#fff" opacity=".9"/>
+      <ellipse cx="164" cy="92" rx="3" ry="2.2" fill="#fff" opacity=".9"/>
+      <path d="M136 110 q4 9 8 0" stroke="#9a7858" stroke-width="1.3" fill="none"/>
+      <!-- 笑顔（口角上がり） -->
+      <path d="M126 133 q14 10 28 0" stroke="#9a7858" stroke-width="1.8" fill="none"/>
+      <text x="140" y="185" font-family="sans-serif" font-size="11" fill="#94a3b8" text-anchor="middle" font-weight="bold">Normal</text>
+    </svg>`,
+  };
+  return svgs[key] || svgs.normal;
+}
+
+const PRODUCTS = {
+  innerdry:[
+    {rank:1, tag:'一番おすすめ', label:'肌ラボ 極潤プレミアム ヒアルロン液', brand:'ロート製薬', point:'5種のヒアルロン酸で水分を多層補給。インナードライに最も効くアプローチ。', price:'¥990', url:'https://www.amazon.co.jp/dp/B07QDQB6YT', img:'https://m.media-amazon.com/images/I/61v3RL9XYBL._SL200_.jpg'},
+    {rank:2, tag:'普通', label:'無印良品 敏感肌用化粧水 高保湿タイプ', brand:'無印良品', point:'香料・アルコールフリー。セラミド配合でバリアを補強しながら保湿。', price:'¥690', url:'https://www.amazon.co.jp/dp/B00HGPJQUW', img:'https://m.media-amazon.com/images/I/41MFa2MHVTL._SL200_.jpg'},
+    {rank:3, tag:'あまりおすすめしない', label:'ビオレ メン オイルコントロール化粧水', brand:'花王', point:'さっぱり系はインナードライをさらに乾燥させるリスクあり。今の肌には不向き。', price:'¥660', url:'https://www.amazon.co.jp/dp/B00CPJNJLK', img:'https://m.media-amazon.com/images/I/51jD5FQWOVL._SL200_.jpg'},
+  ],
+  oily_acne:[
+    {rank:1, tag:'一番おすすめ', label:'ポーラ リンクルショット メディカル セラム', brand:'POLA', point:'薬用×ニキビケア×保湿を両立。脂性ニキビ肌に最適な処方設計。', price:'¥13,200', url:'https://www.amazon.co.jp/dp/B07BFMVSSB', img:'https://m.media-amazon.com/images/I/41UQ4AVOCFL._SL200_.jpg'},
+    {rank:2, tag:'普通', label:'ロゼット 洗顔パスタ アクネクリア 化粧水', brand:'ロゼット', point:'サリチル酸配合の薬用。コスパ良くニキビを抑える定番。', price:'¥880', url:'https://www.amazon.co.jp/dp/B000FQRAAQ', img:'https://m.media-amazon.com/images/I/51t0CjHTFNL._SL200_.jpg'},
+    {rank:3, tag:'あまりおすすめしない', label:'ハトムギ化粧水（とろとろタイプ）', brand:'コーセー', point:'高粘度タイプは毛穴を詰まらせやすく、ニキビ肌には逆効果になりやすい。', price:'¥880', url:'https://www.amazon.co.jp/dp/B0001BIXK4', img:'https://m.media-amazon.com/images/I/41hkNJquqbL._SL200_.jpg'},
+  ],
+  sensitive_acne:[
+    {rank:1, tag:'一番おすすめ', label:'VT CICA デイリーセラム トナー', brand:'VT Cosmetics', point:'シカ成分でバリア補修しながら低刺激でニキビケア。敏感ニキビ肌の最適解。', price:'¥2,420', url:'https://www.amazon.co.jp/dp/B07VNQ7KW3', img:'https://m.media-amazon.com/images/I/61rEgHBCwCL._SL200_.jpg'},
+    {rank:2, tag:'普通', label:'無印良品 敏感肌用化粧水 しっとりタイプ', brand:'無印良品', point:'完全無香料・低刺激。ニキビへの直接ケアは弱いが肌荒れ予防に有効。', price:'¥590', url:'https://www.amazon.co.jp/dp/B00HGPJR5Y', img:'https://m.media-amazon.com/images/I/41MFa2MHVTL._SL200_.jpg'},
+    {rank:3, tag:'あまりおすすめしない', label:'アルコール含有の薬用化粧水全般', brand:'各社', point:'敏感肌にアルコール入りはヒリヒリを悪化させる。成分表を必ず確認して。', price:'—', url:'', img:''},
+  ],
+  sensitive:[
+    {rank:1, tag:'一番おすすめ', label:'キュレル 潤浸保湿 化粧水 III（とてもしっとり）', brand:'花王', point:'セラミド機能成分配合。バリア機能の回復に特化した敏感肌の定番最強コスメ。', price:'¥1,540', url:'https://www.amazon.co.jp/dp/B007IUJY26', img:'https://m.media-amazon.com/images/I/51pj+dldVDL._SL200_.jpg'},
+    {rank:2, tag:'普通', label:'アベンヌ ウォーター', brand:'Avène', point:'温泉水のみのシンプル処方。赤み・ヒリヒリのときの応急処置にも使える。', price:'¥1,320', url:'https://www.amazon.co.jp/dp/B002CRQBTM', img:'https://m.media-amazon.com/images/I/41iqKBmJdmL._SL200_.jpg'},
+    {rank:3, tag:'あまりおすすめしない', label:'メンズ向け爽快感系化粧水（メントール入り）', brand:'各社', point:'清涼感成分は敏感肌の刺激になる。「スーッとする」系は今の肌には不向き。', price:'—', url:'', img:''},
+  ],
+  combo:[
+    {rank:1, tag:'一番おすすめ', label:'IPSA タイム Rアクア', brand:'イプサ', point:'Tゾーン・Uゾーンのバランスを自動調整する混合肌のために設計された化粧水。', price:'¥6,600', url:'https://www.amazon.co.jp/dp/B004GHUS6Q', img:'https://m.media-amazon.com/images/I/41e6fJXiiyL._SL200_.jpg'},
+    {rank:2, tag:'普通', label:'肌ラボ 白潤プレミアム 薬用浸透美白化粧水', brand:'ロート製薬', point:'全顔に使えるバランス型。コスパ良く混合肌の皮脂と乾燥を同時にケア。', price:'¥1,078', url:'https://www.amazon.co.jp/dp/B08MSLBKZX', img:'https://m.media-amazon.com/images/I/51Gxe0B3UrL._SL200_.jpg'},
+    {rank:3, tag:'あまりおすすめしない', label:'ニベア メン モイスチャライザー', brand:'ニベア', point:'Tゾーンへの保湿が過剰になりやすい。混合肌には重すぎるテクスチャー。', price:'¥770', url:'', img:''},
+  ],
+  oily:[
+    {rank:1, tag:'一番おすすめ', label:'サンソリット スキンピールバー ティートゥリー', brand:'Sunsolleit', point:'BHA配合で毛穴の皮脂を溶かしながら保湿。オイリー肌の皮脂コントロールに最適。', price:'¥3,080', url:'https://www.amazon.co.jp/dp/B000FQRAAQ', img:'https://m.media-amazon.com/images/I/51t0CjHTFNL._SL200_.jpg'},
+    {rank:2, tag:'普通', label:'ビオレ メン オイルコントロール化粧水', brand:'花王', point:'さっぱり系の定番。皮脂コントロールと保湿のバランスが取れたコスパ品。', price:'¥660', url:'https://www.amazon.co.jp/dp/B00CPJNJLK', img:'https://m.media-amazon.com/images/I/51jD5FQWOVL._SL200_.jpg'},
+    {rank:3, tag:'あまりおすすめしない', label:'高保湿系クリームタイプの化粧水', brand:'各社', point:'オイリー肌に油分が多い重いテクスチャーは毛穴詰まりの原因になりやすい。', price:'—', url:'', img:''},
+  ],
+  dry:[
+    {rank:1, tag:'一番おすすめ', label:'肌ラボ 極潤プレミアム ヒアルロン液', brand:'ロート製薬', point:'5種ヒアルロン酸の多層保湿。乾燥肌にとっては最もコスパの高い最強アイテム。', price:'¥990', url:'https://www.amazon.co.jp/dp/B07QDQB6YT', img:'https://m.media-amazon.com/images/I/61v3RL9XYBL._SL200_.jpg'},
+    {rank:2, tag:'普通', label:'キュレル 潤浸保湿 化粧水 II（しっとり）', brand:'花王', point:'セラミド補給で乾燥肌のバリアを徐々に回復。敏感でない乾燥肌向け。', price:'¥1,320', url:'https://www.amazon.co.jp/dp/B007IUJY1C', img:'https://m.media-amazon.com/images/I/51pj+dldVDL._SL200_.jpg'},
+    {rank:3, tag:'あまりおすすめしない', label:'さっぱり・ローションタイプの化粧水', brand:'各社', point:'乾燥肌にさっぱり系は水分の蒸発を加速させる。今の肌には明らかに不向き。', price:'—', url:'', img:''},
+  ],
+  normal:[
+    {rank:1, tag:'一番おすすめ', label:'オルビス オフクリーム', brand:'ORBIS', point:'普通肌の維持と将来のエイジングケアを同時に。ビタミンC誘導体配合でくすみ予防。', price:'¥3,300', url:'https://www.amazon.co.jp/dp/B08JDHMT4N', img:'https://m.media-amazon.com/images/I/41ue4OzC8IL._SL200_.jpg'},
+    {rank:2, tag:'普通', label:'無印良品 敏感肌用化粧水 しっとりタイプ', brand:'無印良品', point:'シンプル処方で現状維持に最適。過剰なケアをせず普通肌のバランスを守る。', price:'¥590', url:'https://www.amazon.co.jp/dp/B00HGPJR5Y', img:'https://m.media-amazon.com/images/I/41MFa2MHVTL._SL200_.jpg'},
+    {rank:3, tag:'あまりおすすめしない', label:'特定成分に特化した高機能化粧水', brand:'各社', point:'普通肌には過剰なアプローチ。肌バランスを崩すリスクがある。', price:'—', url:'', img:''},
+  ],
+};
+
+function getTagStyle(rank){
+  if(rank===1) return 'background:#d4af37;color:#000;';
+  if(rank===2) return 'background:rgba(255,255,255,.15);color:rgba(255,255,255,.8);';
+  return 'background:rgba(255,80,80,.15);color:#f87171;';
+}
+function getRankIcon(rank){
+  if(rank===1) return '👑';
+  if(rank===2) return '👍';
+  return '⚠';
+}
+
+function drawRadar(canvasId, scores){
+  const canvas = document.getElementById(canvasId);
+  if(!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const cx = canvas.width/2, cy = canvas.height/2, r = cx - 36;
+  const labels = ['皮脂','乾燥','感受性','ニキビ','バリア','生活'];
+  const vals   = scores; // 0〜100
+  const N = labels.length;
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+
+  // グリッド
+  [0.25,0.5,0.75,1].forEach(ratio=>{
+    ctx.beginPath();
+    for(let i=0;i<N;i++){
+      const angle = (Math.PI*2/N)*i - Math.PI/2;
+      const x = cx + r*ratio*Math.cos(angle);
+      const y = cy + r*ratio*Math.sin(angle);
+      i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
+    }
+    ctx.closePath();
+    ctx.strokeStyle = 'rgba(255,255,255,.08)';
+    ctx.lineWidth = 1;
+    ctx.stroke();
+  });
+
+  // 軸線
+  for(let i=0;i<N;i++){
+    const angle = (Math.PI*2/N)*i - Math.PI/2;
+    ctx.beginPath();
+    ctx.moveTo(cx,cy);
+    ctx.lineTo(cx+r*Math.cos(angle), cy+r*Math.sin(angle));
+    ctx.strokeStyle='rgba(255,255,255,.1)';
+    ctx.lineWidth=1;
+    ctx.stroke();
+  }
+
+  // データ塗り
+  ctx.beginPath();
+  for(let i=0;i<N;i++){
+    const angle = (Math.PI*2/N)*i - Math.PI/2;
+    const v = vals[i]/100;
+    const x = cx + r*v*Math.cos(angle);
+    const y = cy + r*v*Math.sin(angle);
+    i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
+  }
+  ctx.closePath();
+  ctx.fillStyle = 'rgba(29,185,84,.2)';
+  ctx.fill();
+  ctx.strokeStyle = '#1db954';
+  ctx.lineWidth = 2;
+  ctx.stroke();
+
+  // 頂点ドット
+  for(let i=0;i<N;i++){
+    const angle = (Math.PI*2/N)*i - Math.PI/2;
+    const v = vals[i]/100;
+    ctx.beginPath();
+    ctx.arc(cx+r*v*Math.cos(angle), cy+r*v*Math.sin(angle), 4,0,Math.PI*2);
+    ctx.fillStyle='#1db954';
+    ctx.fill();
+  }
+
+  // ラベル
+  ctx.font = '500 11px Noto Sans JP, sans-serif';
+  ctx.fillStyle = 'rgba(255,255,255,.55)';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  for(let i=0;i<N;i++){
+    const angle = (Math.PI*2/N)*i - Math.PI/2;
+    const lx = cx + (r+22)*Math.cos(angle);
+    const ly = cy + (r+22)*Math.sin(angle);
+    ctx.fillText(labels[i], lx, ly);
+  }
+}
+
+function drawSkinMap(canvasId, sc){
+  const canvas = document.getElementById(canvasId);
+  if(!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const w = canvas.width, h = canvas.height;
+  ctx.clearRect(0,0,w,h);
+
+  // 顔のシルエット（楕円）
+  ctx.beginPath();
+  ctx.ellipse(w/2, h*0.48, w*0.34, h*0.44, 0, 0, Math.PI*2);
+  ctx.strokeStyle='rgba(255,255,255,.18)';
+  ctx.lineWidth=1.5;
+  ctx.stroke();
+  ctx.fillStyle='rgba(255,255,255,.03)';
+  ctx.fill();
+
+  function heatColor(v, alpha){
+    if(v>66) return `rgba(29,185,84,${alpha})`;   // 良好：緑
+    if(v>33) return `rgba(245,196,0,${alpha})`;   // 中間：黄
+    return `rgba(248,113,113,${alpha})`;           // 要注意：赤
+  }
+
+  // Tゾーン（おでこ〜鼻）
+  const tScore = 100 - sc.axes.sebumPct; // 低皮脂=良い
+  ctx.beginPath();
+  ctx.ellipse(w/2, h*0.3, w*0.13, h*0.12, 0, 0, Math.PI*2);
+  ctx.fillStyle = heatColor(tScore, 0.55);
+  ctx.fill();
+  ctx.beginPath();
+  ctx.ellipse(w/2, h*0.52, w*0.07, h*0.1, 0, 0, Math.PI*2);
+  ctx.fillStyle = heatColor(tScore, 0.55);
+  ctx.fill();
+
+  // Uゾーン（頬）
+  const uScore = 100 - sc.axes.dryPct;
+  ctx.beginPath();
+  ctx.ellipse(w*0.33, h*0.52, w*0.1, h*0.13, 0, 0, Math.PI*2);
+  ctx.fillStyle = heatColor(uScore, 0.55);
+  ctx.fill();
+  ctx.beginPath();
+  ctx.ellipse(w*0.67, h*0.52, w*0.1, h*0.13, 0, 0, Math.PI*2);
+  ctx.fillStyle = heatColor(uScore, 0.55);
+  ctx.fill();
+
+  // あご
+  const chinScore = 100 - Math.max(sc.axes.sebumPct, sc.axes.dryPct)/2;
+  ctx.beginPath();
+  ctx.ellipse(w/2, h*0.78, w*0.1, h*0.07, 0, 0, Math.PI*2);
+  ctx.fillStyle = heatColor(chinScore, 0.45);
+  ctx.fill();
+
+  // ラベル
+  ctx.font = '700 10px Noto Sans JP, sans-serif';
+  ctx.textAlign = 'center';
+  ctx.fillStyle = 'rgba(255,255,255,.7)';
+  ctx.fillText('Tゾーン', w/2, h*0.18);
+  ctx.fillText('頬(L)', w*0.16, h*0.52);
+  ctx.fillText('頬(R)', w*0.84, h*0.52);
+  ctx.fillText('あご', w/2, h*0.91);
+
+  // 凡例
+  ctx.font='9px Noto Sans JP, sans-serif';
+  [[29,185,84,'良好'],[245,196,0,'注意'],[248,113,113,'要ケア']].forEach(([r,g,b,t],i)=>{
+    const lx=6, ly=h-38+i*13;
+    ctx.fillStyle=`rgba(${r},${g},${b},.8)`;
+    ctx.fillRect(lx,ly,8,8);
+    ctx.fillStyle='rgba(255,255,255,.4)';
+    ctx.textAlign='left';
+    ctx.fillText(t,lx+11,ly+7);
+  });
+}
+
+function showResult(){
+  const sc   = calcScores(ans);
+  const type = classifyType(sc);
+  const ax   = sc.axes;
+  const key  = Object.keys(TYPES).find(k=>TYPES[k]===type)||'normal';
+  const prods= PRODUCTS[key]||PRODUCTS.normal;
+
+  const radarVals = [ax.sebumPct, ax.dryPct, ax.sensPct, ax.acnePct, ax.barrierPct, ax.lifePct];
+
+  const axes = [
+    {name:'皮脂分泌量',              pct:ax.sebumPct,   color:'#1db954'},
+    {name:'乾燥度（TEWL指標）',       pct:ax.dryPct,     color:'#60a5fa'},
+    {name:'皮膚感受性（敏感度）',     pct:ax.sensPct,    color:'#fb923c'},
+    {name:'ニキビ重症度',            pct:ax.acnePct,    color:'#c084fc'},
+    {name:'バリア機能（高いほど良）', pct:ax.barrierPct, color:'#a78bfa'},
+    {name:'生活習慣（高いほど良）',   pct:ax.lifePct,    color:'#34d399'},
+  ];
+
+  document.getElementById('q-area').innerHTML = `
+<div class="result">
+  <div class="r-label">診断結果</div>
+
+  ${type.warn?`<div class="innerdry-alert">⚠ <strong>インナードライの疑いがあります。</strong>テカりを「脂性肌」と判断して油分カットすると悪化します。保湿を優先してください。</div>`:''}
+
+  <!-- 肌タイプSVGイラスト -->
+  <div style="border-radius:14px;overflow:hidden;margin-bottom:16px;border:1px solid ${type.border};background:rgba(0,0,0,.3);aspect-ratio:14/10;">
+    ${getSkinSVG(key)}
+  </div>
+
+  <!-- 肌タイプバッジ -->
+  <div class="type-badge-wrap" style="background:${type.bg};border:1.5px solid ${type.border};">
+    <div style="font-size:10px;color:rgba(255,255,255,.4);letter-spacing:.12em;margin-bottom:8px;text-transform:uppercase;">Your Skin Type</div>
+    <div class="type-badge" style="color:${type.color};border-color:${type.color};background:${type.color}18;">${type.label}</div>
+    <div class="type-en" style="color:${type.color};margin-bottom:12px;">${type.en}</div>
+    <div class="type-desc">${type.desc}</div>
+  </div>
+
+  <div class="sec-div"></div>
+
+  <!-- レーダーチャート＋肌マップ -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:20px;">
+    <div style="background:rgba(255,255,255,.03);border:1px solid var(--border-lo);border-radius:12px;padding:14px;text-align:center;">
+      <div style="font-size:10px;color:var(--text-lo);letter-spacing:.08em;margin-bottom:10px;">肌状態レーダー</div>
+      <canvas id="radar" width="180" height="180" style="display:block;margin:0 auto;"></canvas>
+    </div>
+    <div style="background:rgba(255,255,255,.03);border:1px solid var(--border-lo);border-radius:12px;padding:14px;text-align:center;">
+      <div style="font-size:10px;color:var(--text-lo);letter-spacing:.08em;margin-bottom:10px;">部位別肌マップ</div>
+      <canvas id="skinmap" width="180" height="180" style="display:block;margin:0 auto;"></canvas>
+    </div>
+  </div>
+
+  <!-- スコアバー -->
+  <div style="margin-bottom:20px;">
+    <div class="axes-title">スコア詳細</div>
+    ${axes.map(a=>`
+    <div class="axis-row">
+      <div class="axis-meta">
+        <span class="axis-name">${a.name}</span>
+        <span class="axis-val">${a.pct}%</span>
+      </div>
+      <div class="axis-track">
+        <div class="axis-fill" style="width:0%;background:${a.color}" data-target="${a.pct}"></div>
+      </div>
+    </div>`).join('')}
+  </div>
+
+  <div class="sec-div"></div>
+
+  <!-- おすすめ化粧水 -->
+  <div style="margin-bottom:20px;">
+    <div style="font-size:10px;color:var(--text-lo);letter-spacing:.08em;margin-bottom:14px;">あなたの肌タイプに合う化粧水</div>
+    ${prods.map(p=>`
+    <div style="display:flex;align-items:center;gap:12px;padding:13px 16px;border-radius:10px;border:1px solid ${p.rank===1?type.border:'var(--border-lo)'};background:${p.rank===1?type.bg:'rgba(255,255,255,.02)'};margin-bottom:8px;">
+      <span style="font-size:20px;flex-shrink:0;">${getRankIcon(p.rank)}</span>
+      <div style="flex:1;min-width:0;">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:3px;flex-wrap:wrap;">
+          <span style="${getTagStyle(p.rank)}font-size:10px;padding:2px 8px;border-radius:4px;font-weight:700;letter-spacing:.04em;">${p.tag}</span>
+          <span style="font-size:10px;color:var(--text-lo);">${p.brand}</span>
+          ${p.price&&p.price!=='—'?`<span style="font-size:11px;color:${p.rank===1?type.color:'var(--text-lo)'};font-weight:700;margin-left:auto;">${p.price}</span>`:''}
+        </div>
+        <div style="font-size:13px;font-weight:700;color:var(--text-hi);line-height:1.4;">${p.label}</div>
+        <div style="font-size:11px;color:var(--text-mid);margin-top:3px;line-height:1.5;">${p.point}</div>
+      </div>
+    </div>`).join('')}
+  </div>
+
+  <div class="sec-div"></div>
+
+  <!-- NGケア -->
+  <div class="ai-head">NG ケア <span class="ai-pill" style="background:#7f1d1d;">要注意</span></div>
+  <div class="ai-body" id="ng-box">${type.ngcare}</div>
+
+  <div class="sec-div"></div>
+
+  <!-- アドバイス -->
+  <div class="ai-head">パーソナルアドバイス</div>
+  <div class="ai-body" id="ai-box"></div>
+
+  <div class="r-actions">
+    <button class="btn-retry" onclick="restart()">← もう一度診断する</button>
+  </div>
+</div>`;
+
+  // バーアニメーション
+  setTimeout(()=>{
+    document.querySelectorAll('.axis-fill').forEach(el=>{
+      el.style.width = el.dataset.target+'%';
+    });
+    drawRadar('radar', radarVals);
+    drawSkinMap('skinmap', sc);
+  }, 80);
+
+  fetchAdvice(type, sc);
+}
+
+function fetchAdvice(type, sc){
+  const ADVICE = {
+    innerdry:`今すぐやめるべきは「皮脂が多いから」という理由での洗顔回数の増加と、ノンオイル・さっぱり系だけで済ませるケアです。インナードライは表面の油分に騙されがちですが、肌の内側は水分不足の状態。最優先ケアは化粧水をたっぷり重ねづけして水分を補給すること。成分はヒアルロン酸・グリセリン・セラミドを含む水分重視の化粧水を選び、テクスチャーはさっぱり〜普通タイプが合います。乳液で蓋をすることも忘れずに。1ヶ月続ければテカりが落ち着いてくる人が多く、「テカるから何もしない」から「保湿するからテカらない」へと体感が変わっていきます。`,
+
+    oily_acne:`最優先は洗顔の見直しです。皮脂を落とそうと1日3回以上洗顔している人は今日から朝晩2回に抑えてください。洗いすぎがバリアを壊し、さらに皮脂を分泌させる悪循環を生んでいます。化粧水は薬用（医薬部外品）表記があり、グリチルリチン酸・サリチル酸・ビタミンC誘導体のいずれかを含むさっぱりタイプを選んでください。高粘度のとろみ系・ヒアルロン酸系は毛穴を詰まらせるリスクがあるので今は避けましょう。1ヶ月後には毛穴のつまりが減り、ニキビの頻度が明らかに落ちている状態を目指せます。`,
+
+    sensitive_acne:`刺激を与えないことが最大の優先事項です。アルコール・香料・着色料が入った化粧水は今すぐ使用を中断してください。ニキビがあっても敏感肌の場合、薬用成分の刺激で肌がさらに荒れることがあります。低刺激処方（アルコールフリー・無香料・無着色）でありながらニキビケア成分（グリチルリチン酸・ティーツリー）を含む化粧水を探しましょう。洗顔は摩擦ゼロを意識し、泡で包むように優しく洗うことが基本です。1ヶ月で赤みと肌荒れが落ち着き、ニキビができにくい土台ができていきます。`,
+
+    sensitive:`バリア機能の回復が最優先です。今使っている化粧水の成分表を確認し、エタノール（アルコール）が上位に記載されているなら切り替えを検討してください。セラミド・コラーゲン・ナイアシンアミドなどバリア補強成分を含む低刺激処方が最適です。洗顔は朝は水洗いのみにする方法も有効で、摩擦を極力ゼロにすることが回復への近道。テクスチャーはとろみのあるしっとりタイプが肌に密着しやすく、揮発による乾燥も防げます。1ヶ月でヒリヒリ・赤みの頻度が明らかに減少していきます。`,
+
+    combo:`部位別ケアへの切り替えが最も効果的です。Tゾーン（おでこ・鼻）にはさっぱり系・皮脂ケア成分入りを少量、Uゾーン（頬・あご）には保湿系をたっぷりと使い分けてください。同じ化粧水を全顔に同量塗るのが混合肌の最大のNGです。1本で済ませたい場合はバランス型の化粧水（IPSAのタイムRアクアなど混合肌向け設計）を選びましょう。成分はBHA（サリチル酸）配合でテクスチャーが軽めのものを。1ヶ月後にはTゾーンのテカりが抑えられ、頬の乾燥感もなくなったバランスの取れた肌になれます。`,
+
+    oily:`洗顔の質と回数を整えることが第一歩です。現在1日3回以上洗顔している場合は朝晩2回に削減してください。化粧水はさっぱりタイプで皮脂ケア成分（BHA・ナイアシンアミド・ビタミンC誘導体）入りを選びましょう。「油分カット＝正解」ではなく、適切な保湿で皮脂の過剰分泌を抑えるのが本来のアプローチです。テクスチャーは水のようなローションタイプが肌に負担なく使えます。毛穴が気になる場合は週1〜2回の酵素洗顔を追加すると詰まりが取れやすくなります。1ヶ月でテカりのピークタイムが遅くなり、昼にベタつく時間が短くなっていきます。`,
+
+    dry:`水分補給を最優先にしたルーティン構築が急務です。現在「保湿が足りていない」と体が感じているサインがつっぱりとして出ています。化粧水はヒアルロン酸・セラミド・コラーゲンを含む高保湿タイプを選び、1回の量をケチらず500円玉大をたっぷり使ってください。その後に乳液またはクリームで蓋をする2ステップが乾燥肌には必須です。洗顔は泡立てた泡で優しく洗い、すすぎはぬるま湯で。熱いお湯は皮脂を落としすぎるので避けましょう。1ヶ月でつっぱり感が朝からなくなり、肌のキメが整ってくる変化を実感できます。`,
+
+    normal:`現状の維持と将来への先行投資が鍵です。今の肌バランスを崩さないよう、スキンケアをシンプルに継続することが最も重要。余裕があればビタミンC誘導体入りの化粧水を取り入れると、毛穴・くすみ・シミの予防効果が期待できます。特に20代のうちからUVケア（日焼け止め）を習慣にすることで、30代以降の肌の差が劇的に変わります。保湿は化粧水＋乳液の2ステップをベースに、乾燥を感じる日は量を増やす柔軟な対応を。1ヶ月後の変化は見えにくいですが、継続することで3ヶ月後・1年後に「やっておいてよかった」と感じる肌になれます。`,
+  };
+
+  // typeのkeyを特定
+  const key = Object.keys(TYPES).find(k => TYPES[k] === type) || 'normal';
+
+  // 生活習慣スコアが低い場合の追記
+  let extra = '';
+  if(sc.lifestyle <= 1){
+    extra = '\n\nまた、睡眠不足と水分不足は皮脂分泌の乱れとバリア機能低下に直結します。睡眠7時間・水分1.5L/日を意識するだけで、ケアの効果が2倍以上変わります。';
+  }
+
+  document.getElementById('ai-box').textContent = (ADVICE[key] || ADVICE.normal) + extra;
+}
+
+function restart(){
+  ans = {}; cur = 0;
+  document.getElementById('prog-fill').style.width = '5%';
+  document.getElementById('prog-label').textContent = '質問 1 / 12';
+  document.getElementById('prog-sect').textContent = QS[0].sect;
+  renderQ(0);
+}
+
+renderQ(0);
+</script>
+</body>
+</html>
